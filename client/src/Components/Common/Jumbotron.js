@@ -31,8 +31,8 @@ export const Jumbotron = () => (
     <div fluid class="jumbo">
       <div className='overlay' />
       <Container>
-        <h1>Welcome To React Hunt</h1>
-        <p>Total react js solution </p>
+        <h1>Welcome To BookVault</h1>
+        <p>A Library Management System</p>
       </Container>
     {/* </Jumbo> */}
     </div>

@@ -40,7 +40,6 @@ export default Login;
 // src/Login.js
 
 // src/Login.js
-
 import React, { useState } from 'react';
 import { Container, Form, Button, Row, Col } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
@@ -52,13 +51,6 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  /*const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle login logic here
-    console.log('Email:', email);
-    console.log('Password:', password);
-  };*/
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -68,7 +60,7 @@ const Login = () => {
       navigate('/books');
     } catch (error) {
       console.log(error);
-      toast('Login failed - email and/or password is incorrect.');
+      toast.error('Login failed - email and/or password is incorrect.'); // Changed to toast.error for error notification
     }
   };
 
@@ -76,7 +68,7 @@ const Login = () => {
     <Container className="mt-5">
       <Row className="justify-content-md-center">
         <Col md={6}>
-          <h2 className="mb-4">Login</h2>
+          <h2 className="text-center mb-4">Login</h2> {/* Centered the heading */}
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
@@ -98,11 +90,11 @@ const Login = () => {
               />
             </Form.Group>
 
-            <Button variant="primary" type="submit" className="mt-4">
+            <Button variant="primary" type="submit" className="mt-4 btn-block"> {/* Made the button full-width */}
               Submit
             </Button>
           </Form>
-          <p className="mt-3">
+          <p className="text-center mt-3">
             Don't have an account? <Link to="/register">Register here</Link>
           </p>
         </Col>

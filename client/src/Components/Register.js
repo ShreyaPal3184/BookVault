@@ -1,10 +1,8 @@
-// src/Components/Register.js
-
 import React, { useState } from 'react';
 import { Container, Form, Button, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -17,16 +15,16 @@ const Register = () => {
     e.preventDefault();
     // Handle registration logic here
     if (password !== confirmPassword) {
-      toast("Passwords do not match");
+      toast.error("Passwords do not match"); // Changed to toast.error for error notification
     } else {
       try {
         const response = await axios.post('http://localhost:3001/users', { name, email, password });
         console.log(response.data);
-        toast(response.data);
+        toast.success(response.data); // Changed to toast.success for success notification
         navigate('/login');
       } catch (error) {
         console.log(error);
-        toast('Login failed - email and/or password is incorrect.');
+        toast.error('Registration failed - please try again.'); // Changed to toast.error for error notification
       }
     }
   };
@@ -35,9 +33,9 @@ const Register = () => {
     <Container className="mt-5">
       <Row className="justify-content-md-center">
         <Col md={6}>
-          <h2 className="mb-4">Register User</h2>
+          <h2 className="text-center mb-4">Register User</h2> {/* Centered the heading */}
           <Form onSubmit={handleRegister}>
-            <Form.Group controlId="formBasicName" className="mt-3">
+            <Form.Group controlId="formBasicName">
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
@@ -77,10 +75,13 @@ const Register = () => {
               />
             </Form.Group>
 
-            <Button variant="primary" type="submit" className="mt-4">
+            <Button variant="primary" type="submit" className="mt-4 btn-block"> {/* Made the button full-width */}
               Register
             </Button>
           </Form>
+          <p className="text-center mt-3">
+            Already have an account? <Link to="/login">Login here</Link>
+          </p>
         </Col>
       </Row>
     </Container>

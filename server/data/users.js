@@ -44,7 +44,7 @@ const createUser = (request, response) => {
     [name, email, password],
     (error, results) => {
       if (error) {
-        throw error;
+        response.status(500).send(`User not created`);
       }
       response.status(201).send(`User added with ID: ${results.rows[0].id}`);
     }
@@ -78,10 +78,27 @@ const deleteUser = (request, response) => {
   });
 };
 
+const login = (request, response) => {
+  const { email, password } = request.body;
+
+  db.query(
+    'SELECT id from users WHERE email = $1 and password = $2', [email, password], (error, results) => {
+      if (error) {
+        throw error;
+      } else if (results.rows.length > 0) {
+        response.status(200).send(`Login successful`);
+      } else {
+        response.status(401).send(`Login failed`);
+      }
+    }
+  );
+};
+
 export {
   getUsers,
   getUserById,
   createUser,
   updateUser,
   deleteUser,
+  login
 };

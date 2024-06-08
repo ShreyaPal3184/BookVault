@@ -1,7 +1,7 @@
 import db from './db.js';
 
 const getBooks = (request, response) => {
-  db.query('SELECT id,name,author,genre,quantity FROM books ORDER BY id ASC', (error, results) => {
+  db.query('SELECT id,name,author,genre,quantity,imagename FROM books ORDER BY id ASC', (error, results) => {
     if (error) {
         console.error("Error executing query", error.stack);
     }
@@ -15,7 +15,7 @@ const getBooks = (request, response) => {
 const getBooksById = (request, response) => {
     const id = parseInt(request.params.id);
   
-    db.query('SELECT id,name,author,genre,quantity FROM books WHERE id = $1', [id], (error, results) => {
+    db.query('SELECT id,name,author,genre,quantity,imagename FROM books WHERE id = $1', [id], (error, results) => {
       if (error) {
           console.error("Error executing query", error.stack);
       } else {
@@ -28,8 +28,8 @@ const createBook = (request, response) => {
   const { name, author, genre, quantity } = request.body;
 
   db.query(
-    'INSERT INTO books (name, author, genre, quantity) VALUES ($1, $2, $3, $4) RETURNING *',
-    [name, author, genre, quantity],
+    'INSERT INTO books (name, author, genre, quantity, imagename) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+    [name, author, genre, quantity, imagename],
     (error, results) => {
       if (error) {
         throw error;
@@ -44,8 +44,8 @@ const updateBook = (request, response) => {
   const { name, author, genre, quantity } = request.body;
 
   db.query(
-    'UPDATE books SET name = $1, author = $2, genre = $3, quantity = $4 WHERE id = $5',
-    [name, author, genre, quantity, id],
+    'UPDATE books SET name = $1, author = $2, genre = $3, quantity = $4, imagename=$5 WHERE id = $6',
+    [name, author, genre, quantity, imagename, id],
     (error, results) => {
       if (error) {
         throw error;
