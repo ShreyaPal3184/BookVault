@@ -8,8 +8,8 @@ import { useUser } from './UserContext';
 
 const Books = () => {
   const [books, setBooks] = useState([]);
-  // const [bookCounts, setBookCounts] = useState({});
-  const { user, setUser } = useUser();
+  const [bookCounts, setBookCounts] = useState({});
+  const { user } = useUser();
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -20,7 +20,7 @@ const Books = () => {
           return acc;
         }, {});
         setBooks(response.data);
-        // setBookCounts(initialCounts);
+        setBookCounts(initialCounts);
       } catch (error) {
         console.error('Error fetching books:', error);
       }
@@ -29,34 +29,37 @@ const Books = () => {
     fetchBooks();
   }, []);
 
-  const handleAdd = async (bookId, bookName, userId) => {
-    if (! userId) {
+  const handleAdd = (bookId, bookName) => {
+    if (!user) {
       toast.error('Please log in to rent books.');
       return;
     }
-    try {
-      const response = await axios.post('http://localhost:3001/booksonrent', { user_id: userId, book_id: bookId });
-      console.log(response.data);
-      toast.success(`Book addedd`);
-    } catch (error) {
-      console.log(error);
-      toast.error(`Book not added.`); // Changed to toast.error for error notification
-    }
-    // setBookCounts(prevCounts => {
-    //   const newCount = prevCounts[bookId] + 1;
 
-    //   if (prevCounts[bookId] === 0) {
-    //     toast.success(`${bookName} added!`);
+    setBookCounts(prevCounts => {
+      const newCount = prevCounts[bookId] + 1;
 
-    //   } else {
-    //     toast.info(`${bookName} already added!`);
-    //   }
+      if (prevCounts[bookId] === 0) {
+        try {
+          const response = await axios.post('http://localhost:3001/booksonrent', { user.id,  });
+          console.log(response.data);
+          toast.success(`Login successful for ${response.data[0].name}`);
+          setUser({ id: response.data[0].id, name: response.data[0].name });
+          navigate('/books');
+        } catch (error) {
+          console.log(error);
+          toast.error(`Login failed - email and/or password is incorrect.`); // Changed to toast.error for error notification
+        }
+        toast.success(`${bookName} added!`);
 
-    //   return {
-    //     ...prevCounts,
-    //     [bookId]: newCount
-    //   };
-    // });
+      } else {
+        toast.info(`${bookName} already added!`);
+      }
+
+      return {
+        ...prevCounts,
+        [bookId]: newCount
+      };
+    });
   };
 
   return (
@@ -85,7 +88,7 @@ const Books = () => {
                       <strong>Genre:</strong> {book.genre}
                     </Card.Text>
                     <Button variant="primary" disabled={book.quantity <= 0} onClick={() => {
-                      handleAdd(book.id, book.name, user ? user.id : null);
+                      handleAdd(book.id, book.name);
                     }}> {/* Disable button if quantity is 0 or less */}
                       {book.quantity > 0 ? 'Rent' : 'Not Available'}
                     </Button>

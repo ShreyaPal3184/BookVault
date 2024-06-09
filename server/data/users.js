@@ -82,11 +82,11 @@ const login = (request, response) => {
   const { email, password } = request.body;
 
   db.query(
-    'SELECT id from users WHERE email = $1 and password = $2', [email, password], (error, results) => {
+    'SELECT id, name from users WHERE email = $1 and password = $2', [email, password], (error, results) => {
       if (error) {
         throw error;
       } else if (results.rows.length > 0) {
-        response.status(200).send(`Login successful`);
+        response.status(200).send(results.rows);
       } else {
         response.status(401).send(`Login failed`);
       }

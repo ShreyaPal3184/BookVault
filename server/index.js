@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import * as users from "./data/users.js";
 import * as books from "./data/books.js"
+import * as booksonrent from "./data/booksonrent.js"
 import cors from "cors";
 
 //const express = require('express');
@@ -35,6 +36,9 @@ app.get('/books/:id', books.getBooksById);
 app.post('/books', books.createBook);
 app.put('/books/:id', books.updateBook);
 app.delete('/books/:id', books.deleteBook);
+
+app.get('/booksonrent/:id', booksonrent.getByUserId);
+app.post('/booksonrent', booksonrent.rentBook);
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);

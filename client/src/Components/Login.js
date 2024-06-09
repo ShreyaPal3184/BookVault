@@ -45,22 +45,25 @@ import { Container, Form, Button, Row, Col } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useUser } from './UserContext';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { setUser } = useUser();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3001/users/login', { email, password });
       console.log(response.data);
-      toast(response.data);
+      toast.success(`Login successful for ${response.data[0].name}`);
+      setUser({ id: response.data[0].id, name: response.data[0].name });
       navigate('/books');
     } catch (error) {
       console.log(error);
-      toast.error('Login failed - email and/or password is incorrect.'); // Changed to toast.error for error notification
+      toast.error(`Login failed - email and/or password is incorrect.`); // Changed to toast.error for error notification
     }
   };
 

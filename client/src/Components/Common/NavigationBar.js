@@ -1,7 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import styled from 'styled-components';
+import { useUser } from '../UserContext';
+import { toast } from 'react-toastify';
 
 const Styles = styled.div`
   .navbar {
@@ -19,8 +21,23 @@ const Styles = styled.div`
   }
 `;
 
-export const NavigationBar = () => (
-  <Styles>
+function NavigationBar(){
+
+  const { user, setUser } = useUser();
+  const navigate = useNavigate();
+  
+  const handleSubmit = async (e) => {
+    if (user) {
+      toast.success(`Logout successful!`);
+      setUser(null);
+      navigate("/");
+    } else {
+      navigate("/login");
+    }
+  }
+
+  return (
+    <Styles>
     <Navbar expand='lg'>
       <Container>
         <Navbar.Brand href='/'>BookVault</Navbar.Brand>
@@ -39,12 +56,12 @@ export const NavigationBar = () => (
             </Nav.Item>
             <Nav.Item>
               <Nav.Link>
-                <Link to='/service'>Service</Link>
+                <Link to='/books'>Books</Link>
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link>
-                <Link to='/Product'>Product</Link>
+                <Link to='/mybooks'>My Books</Link>
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
@@ -52,9 +69,16 @@ export const NavigationBar = () => (
                 <Link to='/contact'>Contact</Link>
               </Nav.Link>
             </Nav.Item>
+            <Nav.Item
+                onClick={()=>handleSubmit()}
+            >
+              <Nav.Link>
+                <Link>{user ? "Logout" : "Login"}</Link>
+              </Nav.Link>
+            </Nav.Item>
             <Nav.Item>
               <Nav.Link>
-                <Link to='/login'>Login</Link>
+                <Link>{user ? user.name : null}</Link>
               </Nav.Link>
             </Nav.Item>
           </Nav>
@@ -62,4 +86,7 @@ export const NavigationBar = () => (
       </Container>
     </Navbar>
   </Styles>
-);
+  )
+}
+
+export {NavigationBar};
