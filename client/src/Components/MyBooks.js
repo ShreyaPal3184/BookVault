@@ -65,7 +65,7 @@ export default MyBooks;
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Card, Container, Row, Col } from 'react-bootstrap';
+import { Card, Container, Row, Col, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUser } from './UserContext';
 import { toast } from 'react-toastify';
@@ -89,6 +89,21 @@ const MyBooks = () => {
 
     fetchBooks();
   }, [user]);
+
+  const handleReturn = async (id) => {
+    // Add logic to handle book return here
+    //toast.success(`Returned book with ID: ${bookId}`);
+    console.log(`Returned book with ID: ${id}`);
+
+    try {
+      const response = await axios.put(`http://localhost:3001/booksonrent/${id}`);
+      console.log(response.data);
+      toast.success(`Book returned`);
+    } catch (error) {
+      console.log(error);
+      toast.error(`Book not added.`); // Changed to toast.error for error notification
+    }
+  };
 
   if (!user) {
     // If user is not logged in, show toast and provide a link to login page
@@ -124,6 +139,7 @@ const MyBooks = () => {
                 <Col md={8}>
                   <Card.Body>
                     <Card.Title style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>{book.name}</Card.Title>
+                    <Button variant="primary" onClick={() => handleReturn(book.r_id)}>Return</Button>
                   </Card.Body>
                 </Col>
               </Row>

@@ -39,6 +39,7 @@ app.delete('/books/:id', books.deleteBook);
 
 app.get('/booksonrent/:id', booksonrent.getByUserId);
 app.post('/booksonrent', booksonrent.rentBook);
+app.put('/booksonrent/:id', booksonrent.returnBook);
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);
