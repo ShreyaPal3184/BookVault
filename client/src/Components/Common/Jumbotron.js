@@ -2,20 +2,20 @@
 import React from 'react';
 import { Jumbotron as Jumbo, Container } from 'react-bootstrap';
 import styled from 'styled-components';
-import boatImage from '../../Assets/boatImage.png';
+import libraryImage from '../../Assets/libraryImage.png';
 
 const Styles = styled.div`
   .jumbo {
-    background: url(${boatImage}) no-repeat fixed bottom;
+    background: url(${libraryImage}) no-repeat center;
     background-size: cover;
     color: #efefef;
-    height: 200px;
+    height: 300px;
     position: relative;
     z-index: -2;
   }
   .overlay {
-    background-color: #000;
-    opacity: 0.6;
+    background-color: #000; 
+    opacity: 0;
     position: absolute;
     top: 0;
     left: 0;

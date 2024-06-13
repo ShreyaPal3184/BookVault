@@ -1,30 +1,71 @@
-import React from 'react';
+/*import React from 'react';
 import { Col } from 'react-bootstrap';
+import styled from 'styled-components';
+import Chatbot from './Chatbot';
+
+const StyledImage = styled.img`
+  .img-fluid {
+  max-width: 100%;
+  height: auto;
+  margin-top: 20px;
+  }
+`;
+
 export const Home = () => (
   <div>
     <div className='row'>
       <Col sm={7}>
         <img
           className='img-fluid'
-          src={require('./Assets/reacthunt.jpg')}
+          src={require('./Assets/bookStack.png')}
           alt='ReactHunt'
         />
       </Col>
       <Col sm={5}>
-        <h2>React Hunt </h2>
-        <p>
-          ReactJS is one of the best JavaScript libraries which is widely known
-          for its adjustable and extensible nature. We make the best use of its
-          exceptional feature of component reusability. Our experts attain
-          outcomes by splitting the interface segments into the smaller
-          components. This process of breaking down a web app into several
-          independent components consumes lesser efforts and results in highly
-          scalable and robust ReactJS application. Moreover, it has broadened
-          its scope by creating awesome user interfaces and web applications.
-          So, hire ReactJS developer from us and let your dreams of having great
-          online presence come true.{' '}
-        </p>
+        <h2>BookVault</h2>
+        <Chatbot />
       </Col>
     </div>
   </div>
 );
+*/
+
+import React, { useState } from 'react';
+import { Col, Modal, Button } from 'react-bootstrap'; // Assuming you have Bootstrap for React installed
+import styled from 'styled-components';
+import Chatbot from './Chatbot';
+
+const StyledImage = styled.img`
+  .img-fluid {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+  }
+`;
+
+export const Home = () => {
+  const [showChatbot, setShowChatbot] = useState(false);
+
+  const openChatbot = () => setShowChatbot(true);
+  const closeChatbot = () => setShowChatbot(false);
+
+  return (
+    <div>
+      <div className='row'>
+        <Col sm={7}>
+          <img
+            className='img-fluid'
+            src={require('./Assets/bookStack.png')}
+            alt='ReactHunt'
+          />
+        </Col>
+        <Col sm={5}>
+          <h2>BookVault</h2>
+          
+        </Col>
+      </div>
+    </div>
+  );
+};
+
+export default Home;

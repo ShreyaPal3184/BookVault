@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Container, Nav, Navbar } from 'react-bootstrap';
+import { Container, Nav, Navbar, Col, Modal, Button } from 'react-bootstrap';
 import styled from 'styled-components';
 import { useUser } from '../UserContext';
 import { toast } from 'react-toastify';
+import Chatbot from "../../Chatbot";
+
 
 const Styles = styled.div`
   .navbar {
@@ -26,6 +28,11 @@ function NavigationBar(){
   const { user, setUser } = useUser();
   const navigate = useNavigate();
   
+  const [showChatbot, setShowChatbot] = useState(false);
+
+  const openChatbot = () => setShowChatbot(true);
+  const closeChatbot = () => setShowChatbot(false);
+
   const handleSubmit = async (e) => {
     if (user) {
       toast.success(`Logout successful!`);
@@ -82,6 +89,24 @@ function NavigationBar(){
               </Nav.Link>
             </Nav.Item>
           </Nav>
+          <Nav.Item>          
+          <Button variant="primary" onClick={openChatbot}>
+            Open Chat
+          </Button>
+          <Modal show={showChatbot} onHide={closeChatbot}>
+            <Modal.Header closeButton>
+              <Modal.Title>Chat with Rasa</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Chatbot />
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={closeChatbot}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
+          </Nav.Item>
         </Navbar.Collapse>
       </Container>
     </Navbar>
