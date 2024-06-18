@@ -74,19 +74,23 @@ function ChatBot() {
 
   const sendMessage = async (text) => {
     const newMessage = { sender: "user", text };
-  
+
     // Update messages state with user message
     setMessages(prevMessages => [...prevMessages, newMessage]);
-  
+
     try {
       const response = await axios.post('http://localhost:5005/webhooks/rest/webhook', {
         sender: "user",
         message: text
       });
-  
-      // Map bot responses to messages format and update state
-      const botMessages = response.data.map((res) => ({ sender: "bot", text: res.text }));
-      setMessages(prevMessages => [...prevMessages, ...botMessages]);
+
+      if (response.data && response.data.length > 0) {
+        // Map bot responses to messages format and update state
+        const botMessages = response.data.map((res) => ({ sender: "bot", text: res.text }));
+        setMessages(prevMessages => [...prevMessages, ...botMessages]);
+      } else {
+        console.warn("No response from the bot.");
+      }
     } catch (error) {
       console.error("Error sending message:", error);
     }
@@ -103,7 +107,7 @@ function ChatBot() {
   return (
     <div className="chatbot-container">
       <div className="chatbot-header">
-        <h1>Chat with Rasa</h1>
+        <h2>Chat with Us</h2>
       </div>
       <div className="chatbot-messages">
         <div className="message-container">

@@ -1,10 +1,11 @@
 import React from 'react';
-import ChatBot from './Chatbot';
+//import ChatBot from './Chatbot';
+import Chat from './Chat';
 
 function App() {
   return (
     <div className="App">
-      <ChatBot />
+      <Chat />
     </div>
   );
 }

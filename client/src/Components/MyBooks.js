@@ -69,6 +69,32 @@ import { Card, Container, Row, Col, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUser } from './UserContext';
 import { toast } from 'react-toastify';
+import styled from 'styled-components';
+
+
+const StyledContainer = styled(Container)`
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+`;
+
+const StyledText = styled.p`
+  font-size: 1.2rem;
+  color: #333;
+  text-align: center;
+`;
+
+const StyledLink = styled(Link)`
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
 
 const MyBooks = () => {
   const { user } = useUser();
@@ -95,6 +121,8 @@ const MyBooks = () => {
     //toast.success(`Returned book with ID: ${bookId}`);
     console.log(`Returned book with ID: ${id}`);
 
+    setBooks(prevBooks => prevBooks.filter(book => book.r_id !== id));
+
     try {
       const response = await axios.put(`http://localhost:3001/booksonrent/${id}`);
       console.log(response.data);
@@ -109,16 +137,16 @@ const MyBooks = () => {
     // If user is not logged in, show toast and provide a link to login page
     toast.info(`Please log in to view your books.`);
     return (
-      <Container className="my-books-container">
-        <p>
-          Click <Link to="/login">here</Link> to log in.
-        </p>
-      </Container>
+      <StyledContainer className="my-books-container">
+      <StyledText>
+        To view your books, <StyledLink to="/login">Login here</StyledLink>
+      </StyledText>
+    </StyledContainer>
     );
   }
 
   if (books.length === 0) {
-    return <p>No books found.</p>;
+    return <h1 style={{textAlign: 'center', marginTop: 50}}>No Books found</h1>
   }
 
   return (

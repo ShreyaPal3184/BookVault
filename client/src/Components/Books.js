@@ -4,23 +4,49 @@ import { Card, Container, Row, Col, Button } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useUser } from './UserContext';
+import styled from 'styled-components';
 
+const StyledCard = styled(Card)`
+  background-color: #ffffff; /* White background */
+  color: #000000; /* Black text color */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow */
+  font-family: 'Arial, sans-serif';
+
+  .card-body {
+    padding: 1rem;
+  }
+
+  .card-img-top {
+    height: 200px; /* Adjust image height as needed */
+    object-fit: cover;
+  }
+
+  .btn-primary {
+    background-color: #007bff; /* Blue button background */
+    border-color: #007bff; /* Blue button border */
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .btn-primary:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    border-color: #0056b3;
+  }
+
+  .blur-card {
+    filter: blur(2px); /* Blur effect for cards with quantity <= 0 */
+  }
+`;
 
 const Books = () => {
   const [books, setBooks] = useState([]);
-  // const [bookCounts, setBookCounts] = useState({});
-  const { user, setUser } = useUser();
+  const { user } = useUser();
 
   useEffect(() => {
     const fetchBooks = async () => {
       try {
         const response = await axios.get('http://localhost:3001/books');
-        const initialCounts = response.data.reduce((acc, book) => {
-          acc[book.id] = 0; // Initialize count for each book to 0
-          return acc;
-        }, {});
         setBooks(response.data);
-        // setBookCounts(initialCounts);
       } catch (error) {
         console.error('Error fetching books:', error);
       }
@@ -30,7 +56,7 @@ const Books = () => {
   }, []);
 
   const handleAdd = async (bookId, bookName, userId) => {
-    if (! userId) {
+    if (!userId) {
       toast.error('Please log in to rent books.');
       return;
     }
@@ -40,23 +66,8 @@ const Books = () => {
       toast.success(`Book addedd`);
     } catch (error) {
       console.log(error);
-      toast.error(`Book not added.`); // Changed to toast.error for error notification
+      toast.error(`Book not added.`);
     }
-    // setBookCounts(prevCounts => {
-    //   const newCount = prevCounts[bookId] + 1;
-
-    //   if (prevCounts[bookId] === 0) {
-    //     toast.success(`${bookName} added!`);
-
-    //   } else {
-    //     toast.info(`${bookName} already added!`);
-    //   }
-
-    //   return {
-    //     ...prevCounts,
-    //     [bookId]: newCount
-    //   };
-    // });
   };
 
   return (
@@ -65,34 +76,34 @@ const Books = () => {
       <Row>
         {books.map((book) => (
           <Col key={book.id} xs={12} md={6} lg={4} className="mb-4">
-            <Card className={`h-100 shadow-sm ${book.quantity <= 0 ? 'blur-card' : ''}`} style={{ backgroundColor: '#f8f9fa', color: '#212529', fontFamily: 'Arial, sans-serif' }}>
+            <StyledCard className={`h-100 shadow-sm ${book.quantity <= 0 ? 'blur-card' : ''}`}>
               <Row className="align-items-center">
                 <Col md={4}>
                   <Card.Img 
                     variant="top" 
                     src={`/Images/${book.imagename}.jpeg`}
                     alt={`${book.name} cover`} 
-                    style={{ height: '100%', objectFit: 'cover' }} 
+                    className="card-img-top" 
                   />
                 </Col>
                 <Col md={8}>
                   <Card.Body>
-                    <Card.Title style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>{book.name}</Card.Title>
-                    <Card.Text style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>
+                    <Card.Title>{book.name}</Card.Title>
+                    <Card.Text>
                       <strong>Author:</strong> {book.author}
                     </Card.Text>
-                    <Card.Text style={{ fontSize: '1rem' }}>
+                    <Card.Text>
                       <strong>Genre:</strong> {book.genre}
                     </Card.Text>
                     <Button variant="primary" disabled={book.quantity <= 0} onClick={() => {
                       handleAdd(book.id, book.name, user ? user.id : null);
-                    }}> {/* Disable button if quantity is 0 or less */}
+                    }}>
                       {book.quantity > 0 ? 'Rent' : 'Not Available'}
                     </Button>
                   </Card.Body>
                 </Col>
               </Row>
-            </Card>
+            </StyledCard>
           </Col>
         ))}
       </Row>

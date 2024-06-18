@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './Components/Login';
-import { Home } from './Home';
+import Home from './Home';
 import Books from './Components/Books';
 import MyBooks from "./Components/MyBooks";
 import { UserProvider } from './Components/UserContext';
@@ -19,7 +19,6 @@ function App() {
       <UserProvider>
         <Router>
           <NavigationBar />
-          <Jumbotron />
           <Layout>
             <div className="App">
               <Routes>
