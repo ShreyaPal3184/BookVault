@@ -36,6 +36,8 @@ app.get('/books/:id', books.getBooksById);
 app.post('/books', books.createBook);
 app.put('/books/:id', books.updateBook);
 app.delete('/books/:id', books.deleteBook);
+app.get('/books/fiction', books.getFiction);
+app.get('/books/nonfiction', books.getNonFiction);
 
 app.get('/booksonrent/:id', booksonrent.getByUserId);
 app.post('/booksonrent', booksonrent.rentBook);

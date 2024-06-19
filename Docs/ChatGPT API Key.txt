@@ -3,3 +3,7 @@ ChatGPT API Key
 sk-proj-EQsGgwnzMQWP0hRocGmGT3BlbkFJCnaBvptYq6SdTbuLXjoZ
 
 Name: BookVault Library
+
+
+
+rasa-project API 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

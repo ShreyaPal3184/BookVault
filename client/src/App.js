@@ -4,6 +4,7 @@ import Login from './Components/Login';
 import Home from './Home';
 import Books from './Components/Books';
 import MyBooks from "./Components/MyBooks";
+import AboutUs from './Components/AboutUs';
 import { UserProvider } from './Components/UserContext';
 import Register from './Components/Register';
 import { Layout } from './Components/Common/Layout';
@@ -27,6 +28,7 @@ function App() {
                 <Route exact path="/books" element={<Books />} />
                 <Route exact path="/mybooks" element={<MyBooks />} />
                 <Route exact path="/register" element={<Register/>} />
+                <Route exact path="/about" element={<AboutUs />} />
               </Routes>
             </div>
           </Layout>

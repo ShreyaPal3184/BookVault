@@ -25,12 +25,12 @@ const Content = styled.div`
 `;
 
 const Heading = styled.h1`
-  font-size: 3rem;
+  font-size: 3.2rem;
   margin-bottom: 20px;
 `;
 
 const Subtitle = styled.p`
-  font-size: 1.5rem;
+  font-size: 2rem;
   line-height: 1.6;
 `;
 
@@ -44,8 +44,8 @@ const Home = () => {
             src={carouselImage1}
             alt="First slide"
           />
-          <Carousel.Caption>
-            <Content>
+          <Carousel.Caption style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', padding: '20px', borderRadius: '10px' }}>
+            <Content style={{ color: 'white', textAlign: 'center' }}>
               <Heading>Welcome to BookVault Library</Heading>
               <Subtitle>
                 Rent books online.

@@ -1,13 +1,22 @@
+// src/App.js
 import React from 'react';
-//import ChatBot from './Chatbot';
-import Chat from './Chat';
+import './App.css';
+import ChatGPT from './ChatGPT';
+import { UserProvider } from './UserContext';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <Chat />
+      <header className="App-header">
+        <h1>ChatGPT Integration Example</h1>
+      </header>
+      <main className="App-main">
+        <UserProvider>
+          <ChatGPT />
+        </UserProvider>
+      </main>
     </div>
   );
-}
+};
 
 export default App;

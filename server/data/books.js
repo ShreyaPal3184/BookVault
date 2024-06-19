@@ -1,7 +1,7 @@
 import db from './db.js';
 
 const getBooks = (request, response) => {
-  db.query('SELECT id,name,author,genre,quantity,imagename FROM books ORDER BY id ASC', (error, results) => {
+  db.query('SELECT id,name,author,genre,quantity,imagename FROM books ORDER BY name ASC', (error, results) => {
     if (error) {
         console.error("Error executing query", error.stack);
     }
@@ -66,5 +66,26 @@ const deleteBook = (request, response) => {
   });
 };
 
+const getFiction = (request, response) => {
+  db.query("SELECT id, name, author, genre, quantity, imagename FROM books WHERE genre = 'Fiction' ORDER BY id ASC", (error, results) => {
+    if (error) {
+      console.error("Error executing query", error.stack);
+      response.status(500).json({ error: "Failed to fetch fiction books" });
+    } else {
+      response.status(200).json(results.rows);
+    }
+  });
+};
 
-export {getBooks, getBooksById, createBook, updateBook, deleteBook};
+const getNonFiction = (request, response) => {
+  db.query("SELECT id, name, author, genre, quantity, imagename FROM books WHERE genre = 'Non Fiction' ORDER BY id ASC", (error, results) => {
+    if (error) {
+      console.error("Error executing query", error.stack);
+      response.status(500).json({ error: "Failed to fetch fiction books" });
+    } else {
+      response.status(200).json(results.rows);
+    }
+  });
+};
+
+export {getBooks, getBooksById, createBook, updateBook, deleteBook, getFiction, getNonFiction};

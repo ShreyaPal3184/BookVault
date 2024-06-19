@@ -60,22 +60,12 @@ function NavigationBar() {
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link>
-                  <Link to='/about'>About</Link>
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link>
                   <Link to='/books'>Books</Link>
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link>
                   <Link to='/mybooks'>My Books</Link>
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link>
-                  <Link to='/contact'>Contact</Link>
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item
