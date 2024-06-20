@@ -2,6 +2,11 @@ version: "3.1"
 
 rules:
 
+- rule: Greet user
+  steps:
+  - intent: greet
+  - action: utter_greet
+
 - rule: Say goodbye anytime the user says goodbye
   steps:
   - intent: goodbye
@@ -10,4 +15,42 @@ rules:
 - rule: Say 'I am a bot' anytime the user challenges
   steps:
   - intent: bot_challenge
-  - action: utter_iamabot
+  - action: utter_iambot
+
+- rule: respond to FAQs
+  steps:
+  - intent: faq
+  - action: utter_faq
+
+- rule: respond to chitchat
+  steps:
+  - intent: chitchat
+  - action: utter_chitchat
+
+- rule: Rent a book
+  steps:
+    - intent: rent_book
+    - action: action_rent_book
+    - action: utter_rent_book
+
+- rule: Return a book
+  steps:
+    - intent: return_book
+    - action: action_return_book
+    - action: utter_return_book
+
+- rule: Check book availability
+  steps:
+    - intent: check_book_availability
+    - action: action_check_book_availability
+    - action: utter_check_book_availability
+
+- rule: Inquire library hours
+  steps:
+    - intent: library_hours
+    - action: utter_library_hours
+
+- rule: Inquire about fines
+  steps:
+    - intent: fine_inquiry
+    - action: action_fine_inquiry

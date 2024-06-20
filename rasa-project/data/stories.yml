@@ -2,10 +2,14 @@ version: "3.1"
 
 stories:
 
-- story: happy path
+- story: Greet user
   steps:
   - intent: greet
   - action: utter_greet
+
+
+- story: happy path
+  steps:
   - intent: mood_great
   - action: utter_happy
 
@@ -28,3 +32,36 @@ stories:
   - action: utter_did_that_help
   - intent: deny
   - action: utter_goodbye
+
+- story: bot challenge
+  steps:
+  - intent: bot_challenge
+  - action: utter_iambot
+
+- story: rent a book
+  steps:
+  - intent: rent_book
+  - action: action_rent_book
+  - action: utter_rent_book
+
+- story: return a book
+  steps:
+  - intent: return_book
+  - action: action_return_book
+  - action: utter_return_book
+
+- story: check book availability
+  steps:
+  - intent: check_book_availability
+  - action: action_check_book_availability
+  - action: utter_check_book_availability
+
+- story: inquire library hours
+  steps:
+  - intent: library_hours
+  - action: utter_library_hours
+
+- story: inquire about fines
+  steps:
+  - intent: fine_inquiry
+  - action: action_fine_inquiry

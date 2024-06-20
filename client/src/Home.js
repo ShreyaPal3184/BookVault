@@ -5,20 +5,20 @@ import styled from 'styled-components';
 import Carousel from "./Components/Carousel";
 import Cards from "./Components/Cards";
 import HowItWorks from './Components/HowItWorks';
-import AboutUs from "./Components/AboutUs";
 import aboutUsImage from './Assets/aboutUsImage.png'; // Make sure to replace this with the actual path to your image
 
 // Styled component for the section heading
 const SectionHeading = styled.h1`
   text-align: center;
   margin-top: 60px; /* Adjust this value to add space above the heading */
+  margin-bottom: 30px;
 `;
 
 const StyledImage = styled.img`
   width: 100%;
   height: auto;
   max-width: 400px; /* Adjust this value to set the maximum width of the image */
-  margin-left: 100px;
+  float: right; /* Shift the image to the right */
 `;
 
 const ButtonContainer = styled.div`
@@ -35,7 +35,7 @@ const Home = () => {
         <SectionHeading>About Us</SectionHeading>
         <Row className="align-items-center">
           <Col md={6}>
-            <h5 style={{textAlign: 'center'}}>
+            <h5 style={{ textAlign: 'center' }}>
               Welcome to BookVault Library! We are dedicated to providing easy access to a wide range of books and resources for all book lovers and researchers. Our online platform allows you to rent books from the comfort of your home and have them delivered right to your doorstep.
             </h5>
             <ButtonContainer>

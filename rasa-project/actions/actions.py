@@ -1,60 +1,59 @@
-# This files contains your custom actions which can be used to run
-# custom Python code.
-#
-# See this guide on how to implement these action:
-# https://rasa.com/docs/rasa/custom-actions
-
-
-# This is a simple example for a custom action which utters "Hello World!"
-
-# from typing import Any, Text, Dict, List
-#
-# from rasa_sdk import Action, Tracker
-# from rasa_sdk.executor import CollectingDispatcher
-#
-#
-# class ActionHelloWorld(Action):
-#
-#     def name(self) -> Text:
-#         return "action_hello_world"
-#
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-#
-#         dispatcher.utter_message(text="Hello World!")
-#
-#         return []
-
-
-# actions/actions.py
-
 from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
-import openai
+from rasa_sdk.events import SlotSet
 
-class ActionGenerateResponse(Action):
+class ActionCheckBookAvailability(Action):
     def name(self) -> Text:
-        return "action_generate_response"
+        return "action_check_book_availability"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-        user_message = tracker.latest_message.get('text')
-        generated_response = self.generate_response(user_message)
-        
-        dispatcher.utter_message(text=generated_response)
-        
+        book = tracker.get_slot('book')
+        # Add logic to check availability from your database
+        is_available = True  # Replace with actual logic
+        if is_available:
+            dispatcher.utter_message(text=f"{book} is available for rent.")
+        else:
+            dispatcher.utter_message(text=f"Sorry, {book} is currently not available.")
         return []
 
-    def generate_response(self, user_message: Text) -> Text:
-        openai.api_key = 'sk-proj-EQsGgwnzMQWP0hRocGmGT3BlbkFJCnaBvptYq6SdTbuLXjoZ'  # Replace with your ChatGPT API key
-        response = openai.Completion.create(
-            model="text-davinci-003",  # Adjust based on your ChatGPT model
-            prompt=user_message,
-            max_tokens=100  # Adjust based on desired response length
-        )
-        
-        return response.choices[0].text.strip()
+class ActionRentBook(Action):
+    def name(self) -> Text:
+        return "action_rent_book"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        book = tracker.get_slot('book')
+        # Add logic to rent the book from your database
+        dispatcher.utter_message(text=f"You have successfully rented {book}. Enjoy reading!")
+        return [SlotSet("book", None)]
+
+class ActionReturnBook(Action):
+    def name(self) -> Text:
+        return "action_return_book"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        book = tracker.get_slot('book')
+        # Add logic to return the book to your database
+        dispatcher.utter_message(text=f"You have successfully returned {book}. Thank you!")
+        return [SlotSet("book", None)]
+
+class ActionFineInquiry(Action):
+    def name(self) -> Text:
+        return "action_fine_inquiry"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        # Add logic to check fines from your database
+        fines = 0  # Replace with actual logic
+        if fines > 0:
+            dispatcher.utter_message(text=f"You have {fines} in overdue fines.")
+        else:
+            dispatcher.utter_message(text="You have no outstanding fines.")
+        return []

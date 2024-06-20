@@ -6,82 +6,71 @@ nlu:
     - hey
     - hello
     - hi
-    - hello there
     - good morning
     - good evening
-    - moin
     - hey there
-    - let's go
-    - hey dude
-    - goodmorning
-    - goodevening
-    - good afternoon
 
 - intent: goodbye
   examples: |
-    - cu
-    - good by
-    - cee you later
-    - good night
     - bye
     - goodbye
-    - have a nice day
-    - see you around
-    - bye bye
     - see you later
+    - bye bye
 
 - intent: affirm
   examples: |
     - yes
-    - y
-    - indeed
-    - of course
-    - that sounds good
-    - correct
+    - sure
+    - absolutely
+    - definitely
 
 - intent: deny
   examples: |
     - no
-    - n
-    - never
-    - I don't think so
-    - don't like that
-    - no way
     - not really
+    - no way
 
-- intent: mood_great
+- intent: rent_book
   examples: |
-    - perfect
-    - great
-    - amazing
-    - feeling like a king
-    - wonderful
-    - I am feeling very good
-    - I am great
-    - I am amazing
-    - I am going to save the world
-    - super stoked
-    - extremely good
-    - so so perfect
-    - so good
-    - so perfect
+    - I want to rent [The Great Gatsby](book)
+    - Can I borrow [1984](book)?
+    - I would like to rent [To Kill a Mockingbird](book)
+    - Is it possible to rent [The Firm](book)?
+    - I need to borrow [The Firm](book)
+    - Can I get [Harry Potter](book) to read?
 
-- intent: mood_unhappy
+- intent: return_book
   examples: |
-    - my day was horrible
-    - I am sad
-    - I don't feel very well
-    - I am disappointed
-    - super sad
-    - I'm so sad
-    - sad
-    - very sad
-    - unhappy
-    - not good
-    - not very good
-    - extremly sad
-    - so saad
-    - so sad
+    - I want to return [The Great Gatsby](book)
+    - Can I return [1984](book)?
+    - I would like to return [To Kill a Mockingbird](book)
+    - I need to return [The Firm](book)
+    - How do I return [The Firm](book)?
+    - I'm returning [Harry Potter](book)
+
+- intent: check_book_availability
+  examples: |
+    - Is [The Great Gatsby](book) available?
+    - Do you have [1984](book)?
+    - Is [To Kill a Mockingbird](book) in stock?
+    - Is [The Firm](book) available for rent?
+    - Can I find [Harry Potter](book) in the library?
+
+- intent: library_hours
+  examples: |
+    - What are the library hours?
+    - When is the library open?
+    - Library opening times?
+    - What time does the library open?
+    - Library working hours?
+
+- intent: fine_inquiry
+  examples: |
+    - Do I have any overdue fines?
+    - What is my fine amount?
+    - How much do I owe in fines?
+    - Any outstanding fines?
+    - Check my fine balance
 
 - intent: bot_challenge
   examples: |
@@ -89,3 +78,17 @@ nlu:
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+
+- intent: chitchat/ask_name
+  examples: |
+    - What is your name?
+    - May I know your name?
+    - What do people call you?
+    - Do you have a name for yourself?
+
+- intent: chitchat/ask_weather
+  examples: |
+    - What's the weather like today?
+    - Does it look sunny outside today?
+    - Oh, do you mind checking the weather for me please?
+    - I like sunny days in Berlin.

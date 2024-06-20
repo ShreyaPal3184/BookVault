@@ -128,3 +128,14 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+
+# rasa
+rasa.db
+rasa.db-shm
+rasa.db-wal
+rasa/segment_key
+rasa/keys
+.rasa
+rasa.code-workspace
+*.tar.gz
