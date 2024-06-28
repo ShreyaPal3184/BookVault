@@ -1,14 +1,4 @@
-//import pg from "pg";
-//
-////const Pool = require('pg').Pool;
-//const db = new pg.Client({
-//  user: 'postgres',
-//  host: 'localhost',
-//  database: 'BookVault',
-//  password: 'ShreyaPSQL',
-//  port: 5432,
-//});
-
+import bcrypt from "bcrypt";
 import db from './db.js';
 
 const getUsers = (request, response) => {
@@ -36,19 +26,27 @@ const getUserById = (request, response) => {
   });
 };
 
-const createUser = (request, response) => {
+const createUser = async (request, response) => {
   const { name, email, password } = request.body;
 
-  db.query(
-    'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *',
-    [name, email, password],
-    (error, results) => {
-      if (error) {
-        response.status(500).send(`User not created`);
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    db.query(
+      'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *',
+      [name, email, hashedPassword],
+      (error, results) => {
+        if (error) {
+          console.log("Error creating user: ", error);
+          response.status(500).send(`User not created`);
+        }
+        response.status(201).send(`User added with ID: ${results.rows[0].id}`);
       }
-      response.status(201).send(`User added with ID: ${results.rows[0].id}`);
-    }
-  );
+    );
+  } catch(error) {
+    console.log("Error creating user: ", error);
+    response.status(500).send(`User not created`);
+  }
 };
 
 const updateUser = (request, response) => {
@@ -78,20 +76,29 @@ const deleteUser = (request, response) => {
   });
 };
 
-const login = (request, response) => {
+const login = async (request, response) => {
   const { email, password } = request.body;
+  
+  try {
+    const result = await db.query('SELECT id, name, email, password FROM users WHERE email = $1', [email]);
+    const user = result.rows[0];
 
-  db.query(
-    'SELECT id, name from users WHERE email = $1 and password = $2', [email, password], (error, results) => {
-      if (error) {
-        throw error;
-      } else if (results.rows.length > 0) {
-        response.status(200).send(results.rows);
-      } else {
-        response.status(401).send(`Login failed`);
-      }
+    if (!user) {
+      return response.status(401).send('Login failed'); // Return 401 if user not found
     }
-  );
+
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if(passwordMatch) {
+      response.status(200).send(user);
+    } else {
+      console.log("Error logging in: ", error);
+      response.status(401);
+    } 
+  } catch(error) {
+    console.log("Error logging in: ", error);
+    response.status(401);
+  }
 };
 
 export {

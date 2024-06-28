@@ -27,7 +27,7 @@ const LoginPageImage = styled.img`
 
 const LoginFormContainer = styled.div`
   background: #ffffff;
-  padding: 30px;
+  padding: 40px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background: linear-gradient(-225deg, #007bff 0%, #B8DCFF 48%, #6BBBFF 100%); /* Blue gradient matching #007bff */
@@ -39,17 +39,21 @@ const Login = () => {
   const navigate = useNavigate();
   const { setUser } = useUser();
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3001/users/login', { email, password });
-      console.log(response.data);
-      toast.success(`Login successful for ${response.data[0].name}`);
-      setUser({ id: response.data[0].id, name: response.data[0].name });
-      navigate('/');
+      if (response.status === 200) {
+        console.log(response.data);
+        toast.success(`Login successful for ${response.data.name}`);
+        setUser({ id: response.data.id, name: response.data.name });
+        navigate('/');
+      } else {
+        console.log("Login Failed");
+      }
     } catch (error) {
+      toast.error(`Login failed: User not found.`);
       console.log(error);
-      toast.error(`Login failed - email and/or password is incorrect.`);
     }
   };
 
@@ -62,7 +66,7 @@ const Login = () => {
         <Col md={6}>
           <LoginFormContainer>
             <h2 className="text-center mb-4">Login</h2>
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleLogin}>
               <Form.Group controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
                 <Form.Control

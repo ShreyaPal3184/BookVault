@@ -107,7 +107,7 @@ function ChatBot() {
   return (
     <div className="chatbot-container">
       <div className="chatbot-header">
-        <h2>Chat with Us</h2>
+        <h2>Chat powered by RASA</h2>
       </div>
       <div className="chatbot-messages">
         <div className="message-container">

@@ -12,7 +12,7 @@ import { NavigationBar } from './Components/Common/NavigationBar';
 import { Jumbotron } from './Components/Common/Jumbotron';
 import { Footer } from './Components/Common/Footer';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';   
 
 function App() {
   return (
@@ -39,7 +39,7 @@ function App() {
         position="top-right"
         autoClose={2000}
         hideProgressBar={false}
-        newestOnTop={false}
+        newestOnTop={true}
         closeOnClick
         rtl={false}
         pauseOnFocusLoss

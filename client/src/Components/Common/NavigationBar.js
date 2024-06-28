@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Container, Nav, Navbar, Modal, Button } from 'react-bootstrap';
 import styled from 'styled-components';
 import { useUser } from '../UserContext';
@@ -23,6 +23,11 @@ const Styles = styled.div`
       color: #5A72A0; /* Changed hover color */
     }
   }
+
+  .active {
+    font-weight: bold;
+    color: #5A72A0;
+  }
 `;
 
 function NavigationBar() {
@@ -35,7 +40,7 @@ function NavigationBar() {
   const openChatbot = () => setShowChatbot(true);
   const closeChatbot = () => setShowChatbot(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async () => {
     if (user) {
       toast.success(`Logout successful!`);
       setUser(null);
@@ -54,29 +59,28 @@ function NavigationBar() {
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav>
               <Nav.Item>
-                <Nav.Link>
-                  <Link to='/'>Home</Link>
+                <Nav.Link as={NavLink} to='/' exact>
+                  Home
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link>
-                  <Link to='/books'>Books</Link>
+                <Nav.Link as={NavLink} to='/books'>
+                  Books
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link>
-                  <Link to='/mybooks'>My Books</Link>
+                <Nav.Link as={NavLink} to='/mybooks'>
+                  My Books
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item
                 className="ms-auto"
                 onClick={() => handleSubmit()}
               >
-                <Nav.Link>
-                  <Link>{user ? "Logout" : "Login"}</Link>
+                <Nav.Link as={NavLink} to={user ? "/" : "/login"}>
+                  {user ? "Logout" : "Login"}
                 </Nav.Link>
               </Nav.Item>
-              
             </Nav>
             <Nav.Item className="ms-auto">
               <Button variant="outline-light" onClick={openChatbot}>
@@ -94,10 +98,10 @@ function NavigationBar() {
               </Modal>
             </Nav.Item>
             <Nav.Item>
-                <Nav.Link>
-                  <Link style={{marginLeft: 10}}>{user ? `Signed in as: ${user.name}` : null}</Link>
-                </Nav.Link>
-              </Nav.Item>
+              <Nav.Link>
+                <span style={{marginLeft: 10}}>{user ? `Signed in as: ${user.name}` : null}</span>
+              </Nav.Link>
+            </Nav.Item>
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -106,3 +110,4 @@ function NavigationBar() {
 }
 
 export { NavigationBar };
+  
