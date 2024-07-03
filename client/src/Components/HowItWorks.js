@@ -60,16 +60,16 @@ const HowItWorks = () => {
         <div>
           <PointHeading>Browse for books to rent</PointHeading>
           <PointDescription>
-            We have a large collection of books. Browse the books to find your favourite.
+            We have a large collection of books. Browse the books from 'Books' section to find your favourites.
           </PointDescription>
         </div>
       </Point>
       <Point>
         <PointNumber>3</PointNumber>
         <div>
-          <PointHeading>View your rented books on MyBooks</PointHeading>
+          <PointHeading>View your rented books</PointHeading>
           <PointDescription>
-            Click on MyBooks to view your rented books.
+            Click on 'MyBooks' on the navigation bar to view your rented books.
           </PointDescription>
         </div>
       </Point>
@@ -78,7 +78,16 @@ const HowItWorks = () => {
         <div>
           <PointHeading>Return books</PointHeading>
           <PointDescription>
-            Go to MyBooks section and click on the 'Return' button to return the rented books.
+            Go to 'MyBooks' section and click on the 'Return' button to return the rented books.
+          </PointDescription>
+        </div>
+      </Point>
+      <Point>
+        <PointNumber>5</PointNumber>
+        <div>
+          <PointHeading>Rasa Chatbot</PointHeading>
+          <PointDescription>
+            Clicking on the 'Chat' button on the navigation bar will take you to the Rasa chatbot. You can ask questions or seek assistance. 
           </PointDescription>
         </div>
       </Point>
