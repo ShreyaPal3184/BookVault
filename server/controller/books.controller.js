@@ -1,16 +1,4 @@
-import db from './db.js';
-
-const getBooks = (request, response) => {
-  db.query('SELECT id,name,author,genre,quantity,imagename FROM books ORDER BY name ASC', (error, results) => {
-    if (error) {
-        console.error("Error executing query", error.stack);
-    }
-    else {
-        response.status(200).json(results.rows);
-    }
-    //db.end();
-  });
-};
+import db from '../db.js';
 
 const getBooksById = (request, response) => {
     const id = parseInt(request.params.id);
@@ -88,4 +76,57 @@ const getNonFiction = (request, response) => {
   });
 };
 
-export {getBooks, getBooksById, createBook, updateBook, deleteBook, getFiction, getNonFiction};
+const getBooks = (request, response) => {
+  db.query(`SELECT id, name, author, genre, quantity FROM books`, (error, results) => {
+      if (error) {
+          console.error("Error executing query", error.stack);
+          response.status(500).json({ error: "Error fetching books" });
+        } else {
+          response.status(200).json(results.rows);
+        }
+  })
+}
+
+const getBookRentalCount = (request, response) => {
+  db.query(`SELECT book_id, name, author, COUNT(*) AS rented_count FROM booksonrent JOIN books ON booksonrent.book_id = books.id 
+      GROUP BY book_id, name, author ORDER BY rented_count DESC`, 
+      (error, results) => {
+      if (error) {
+          console.error("Error executing query", error.stack);
+          response.status(500).json({ error: "Error fetching rental count" });
+      } else {
+        response.status(200).json(results.rows);
+      }
+  });
+};
+
+const getTopRentedBooks = (request, response) => {
+db.query(`SELECT book_id, name, COUNT(*) AS rental_count FROM booksonrent JOIN books ON booksonrent.book_id = books.id 
+  GROUP BY book_id, name ORDER BY rental_count DESC LIMIT 5`, 
+  (error, results) => {
+  if (error) {
+    console.error("Error executing query", error.stack);
+    response.status(500).json({ error: "Error fetching top rented books" });
+  } else {
+    response.status(200).json(results.rows);
+  }
+});
+};
+
+const getCurrentlyRentedBooks = (request, response) => {
+
+  db.query(`
+    SELECT books.id as book_id, booksonrent.user_id, books.name, books.author, booksonrent.rented_on FROM booksonrent JOIN books ON booksonrent.book_id = books.id
+    WHERE booksonrent.returned_on IS NULL `, 
+    (error, results) => {
+    if (error) {
+      console.error("Error executing query", error.stack);
+      response.status(500).json({ error: "Error fetching currently rented books for user" });
+    } else {
+      response.status(200).json(results.rows);
+    }
+  });
+};
+
+
+export { getBooksById, createBook, updateBook, deleteBook, getFiction, getNonFiction, getBooks, getBookRentalCount, getCurrentlyRentedBooks, getTopRentedBooks };

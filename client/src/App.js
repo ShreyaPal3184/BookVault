@@ -1,18 +1,21 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from './Components/Login';
-import Home from './Home';
-import Books from './Components/Books';
-import MyBooks from "./Components/MyBooks";
-import AboutUs from './Components/AboutUs';
 import { UserProvider } from './Components/UserContext';
-import Register from './Components/Register';
 import { Layout } from './Components/Common/Layout';
 import { NavigationBar } from './Components/Common/NavigationBar';
-import { Jumbotron } from './Components/Common/Jumbotron';
 import { Footer } from './Components/Common/Footer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';   
+import Home from './Components/UserComponents/Home';
+import Register from './Components/Register';
+import Login from './Components/Login';
+import Books from './Components/UserComponents/Books';
+import MyBooks from "./Components/UserComponents/MyBooks";
+import AboutUs from './Components/UserComponents/AboutUs';
+import AdminHomepage from './Components/AdminComponents/AdminHomePage';
+import RentedBooksPage from './Components/AdminComponents/RentedBooksPage';
+import UsersPage from './Components/AdminComponents/UsersPage';
+import BooksPage from './Components/AdminComponents/BooksPage';
 
 function App() {
   return (
@@ -29,6 +32,10 @@ function App() {
                 <Route exact path="/mybooks" element={<MyBooks />} />
                 <Route exact path="/register" element={<Register/>} />
                 <Route exact path="/about" element={<AboutUs />} />
+                <Route exact path="/admin" element={<AdminHomepage />} />
+                <Route exact path="/rented-count" element={<RentedBooksPage />} />
+                <Route exact path="/users" element={<UsersPage />} />
+                <Route exact path="/books-get" element={<BooksPage />} />
               </Routes>
             </div>
           </Layout>

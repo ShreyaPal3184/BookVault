@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import db from './db.js';
+import db from "../db.js"
 
 const getUsers = (request, response) => {
   db.query('SELECT id,name,email FROM users ORDER BY id ASC', (error, results) => {
@@ -9,12 +9,15 @@ const getUsers = (request, response) => {
     else {
         response.status(200).json(results.rows);
     }
-    //db.end();
   });
 };
 
 const getUserById = (request, response) => {
   const id = parseInt(request.params.id);
+
+  if(!id) {
+    console.log("Id not found");    
+  }
 
   db.query('SELECT id,name,email,password FROM users WHERE id = $1', [id], (error, results) => {
     if (error) {
@@ -22,19 +25,18 @@ const getUserById = (request, response) => {
     } else {
         response.status(200).json(results.rows);
     }
-    //db.end();
   });
 };
 
 const createUser = async (request, response) => {
-  const { name, email, password } = request.body;
+  const { name, email, password, role } = request.body;
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     db.query(
-      'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *',
-      [name, email, hashedPassword],
+      'INSERT INTO users (name, email, password, role) VALUES ($1, $2, $3, $4) RETURNING *',
+      [name, email, hashedPassword, role],
       (error, results) => {
         if (error) {
           console.log("Error creating user: ", error);
@@ -77,10 +79,14 @@ const deleteUser = (request, response) => {
 };
 
 const login = async (request, response) => {
-  const { email, password } = request.body;
+  const { email, password, role } = request.body;
+
+  if(!email || !password || !role) {
+    console.log("Missing entries");
+  }
   
   try {
-    const result = await db.query('SELECT id, name, email, password FROM users WHERE email = $1', [email]);
+    const result = await db.query('SELECT id, name, email, password, role FROM users WHERE email = $1 AND role = $2', [email, role]);
     const user = result.rows[0];
 
     if (!user) {
@@ -101,11 +107,4 @@ const login = async (request, response) => {
   }
 };
 
-export {
-  getUsers,
-  getUserById,
-  createUser,
-  updateUser,
-  deleteUser,
-  login
-};
+export {  getUsers,  getUserById,  createUser,  updateUser,  deleteUser,  login };

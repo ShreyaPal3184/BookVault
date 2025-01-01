@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Container, Row, Col, Button, ButtonGroup } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useUser } from './UserContext';
+import { useUser } from '../UserContext';
 import styled from 'styled-components';
 
 const StyledCard = styled.div`
@@ -92,7 +92,7 @@ const Books = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/books');
+        const response = await axios.get('http://localhost:3001/api/books/get');
         setBooks(response.data);
       } catch (error) {
         console.error('Error fetching books:', error);
@@ -108,7 +108,8 @@ const Books = () => {
       return;
     }
     try {
-      const response = await axios.post('http://localhost:3001/booksonrent', { user_id: userId, book_id: bookId });
+      const response = await axios.post('http://localhost:3001/api/booksonrent/rent', { user_id: userId, book_id: bookId });
+      console.log("Sending request with:", { user_id: userId, book_id: bookId });
       console.log(response.data);
       toast.success(`Book added`);
     } catch (error) {
@@ -156,6 +157,8 @@ const Books = () => {
                     <div className="title">{book.name}</div>
                     <p><strong>Author:</strong> {book.author}</p>
                     <p><strong>Genre:</strong> {book.genre}</p>
+                    <p><strong>Quantity:</strong> {book.quantity}</p>
+                    <p><strong>Rating:</strong> {book.rating === 0 ? book.rating : '---'}</p>
                     <Button
                       variant="primary"
                       className="rent-button"

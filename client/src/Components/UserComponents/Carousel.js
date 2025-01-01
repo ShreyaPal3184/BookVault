@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Carousel } from 'react-bootstrap';
-import carouselImage1 from "../Assets/carouselImage1.png";
-import carouselImage2 from "../Assets/carouselImage2.png";
-import carouselImage3 from "../Assets/carouselImage3.png";
+import carouselImage1 from "../../Assets/carouselImage1.png";
+import carouselImage2 from "../../Assets/carouselImage2.png";
+import carouselImage3 from "../../Assets/carouselImage3.png";
 
 // Styled components for the page layout
 const Container = styled.div`

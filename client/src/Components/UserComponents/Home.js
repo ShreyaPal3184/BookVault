@@ -2,10 +2,10 @@ import React from 'react';
 import { Button, Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Carousel from "./Components/Carousel";
-import Cards from "./Components/Cards";
-import HowItWorks from './Components/HowItWorks';
-import aboutUsImage from './Assets/aboutUsImage.png'; // Make sure to replace this with the actual path to your image
+import Carousel from "./Carousel";
+import Cards from "./Cards";
+import HowItWorks from './HowItWorks';
+import aboutUsImage from '../../Assets/aboutUsImage.png'; 
 
 // Styled component for the section heading
 const SectionHeading = styled.h1`

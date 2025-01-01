@@ -1,9 +1,9 @@
 import express from "express";
 import bodyParser from "body-parser";
-import * as users from "./data/users.js";
-import * as books from "./data/books.js"
-import * as booksonrent from "./data/booksonrent.js"
 import cors from "cors";
+import userRoutes from "./routes/users.route.js";
+import bookRoutes from "./routes/books.route.js";
+import booksonrentRoutes from "./routes/booksonrent.route.js";
 
 //const express = require('express');
 //const bodyParser = require('body-parser');
@@ -24,24 +24,9 @@ app.get('/', (request, response) => {
   response.json({ info: 'Node.js, Express, and Postgres API' });
 });
 
-app.get('/users', users.getUsers);
-app.get('/users/:id', users.getUserById);
-app.post('/users', users.createUser);
-app.put('/users/:id', users.updateUser);
-app.delete('/users/:id', users.deleteUser);
-app.post('/users/login', users.login);
-
-app.get('/books', books.getBooks);
-app.get('/books/:id', books.getBooksById);
-app.post('/books', books.createBook);
-app.put('/books/:id', books.updateBook);
-app.delete('/books/:id', books.deleteBook);
-app.get('/books/fiction', books.getFiction);
-app.get('/books/nonfiction', books.getNonFiction);
-
-app.get('/booksonrent/:id', booksonrent.getByUserId);
-app.post('/booksonrent', booksonrent.rentBook);
-app.put('/booksonrent/:id', booksonrent.returnBook);
+app.use('/api/users', userRoutes);
+app.use('/api/books', bookRoutes);
+app.use('/api/booksonrent', booksonrentRoutes);
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);

@@ -1,12 +1,12 @@
-// src/Login.js
 import React, { useState } from 'react';
 import { Container, Form, Button, Row, Col } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { useUser } from './UserContext';
+import { useUser } from './UserContext.js';
 import styled from 'styled-components';
 import loginPageImage from '../Assets/loginPageImage.jpg'; // Import your animated image
+import AdminHomePage from './AdminComponents/AdminHomePage.js';
 
 const StyledContainer = styled(Container)`
   display: flex;
@@ -36,20 +36,28 @@ const LoginFormContainer = styled.div`
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('user'); // Default role is 'user'
   const navigate = useNavigate();
   const { setUser } = useUser();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3001/users/login', { email, password });
+      const response = await axios.post('http://localhost:3001/api/users/login', { email, password, role });
       if (response.status === 200) {
         console.log(response.data);
-        toast.success(`Login successful for ${response.data.name}`);
-        setUser({ id: response.data.id, name: response.data.name });
-        navigate('/');
+        toast.success(`Login successful`);
+        setUser({ id: response.data.id, name: response.data.name, role: response.data.role });
+
+        // Navigate based on role
+        if (response.data.role === 'admin') {
+          navigate('/admin'); // Redirect to admin homepage
+        } else {
+          navigate('/'); // Redirect to user homepage
+        }
       } else {
         console.log("Login Failed");
+        toast.error(`Login failed.`);
       }
     } catch (error) {
       toast.error(`Login failed: User not found.`);
@@ -85,6 +93,27 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
+              </Form.Group>
+
+              {/* Add Role Radio Buttons */}
+              <Form.Group className="mt-3">
+                <Form.Label>Role</Form.Label>
+                <div>
+                  <Form.Check
+                    type="radio"
+                    label="User"
+                    value="user"
+                    checked={role === 'user'}
+                    onChange={() => setRole('user')}
+                  />
+                  <Form.Check
+                    type="radio"
+                    label="Admin"
+                    value="admin"
+                    checked={role === 'admin'}
+                    onChange={() => setRole('admin')}
+                  />
+                </div>
               </Form.Group>
 
               <Button variant="outline-light" type="submit" className="mt-4 btn-block">
