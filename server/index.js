@@ -4,6 +4,12 @@ import cors from "cors";
 import userRoutes from "./routes/users.route.js";
 import bookRoutes from "./routes/books.route.js";
 import booksonrentRoutes from "./routes/booksonrent.route.js";
+import dotenv from "dotenv";
+
+dotenv.config({});
+
+console.log('LOADED');
+
 
 //const express = require('express');
 //const bodyParser = require('body-parser');

@@ -16,7 +16,7 @@ const Container = styled.div`
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  margin-top: -50px; /* Adjust this value as needed */
+  margin-top: -60px; 
 `;
 
 const Content = styled.div`

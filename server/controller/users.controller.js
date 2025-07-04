@@ -32,24 +32,36 @@ const createUser = async (request, response) => {
   const { name, email, password, role } = request.body;
 
   try {
+    const existingUser = await db.query('SELECT * FROM users WHERE email = $1', [email]);
+
+    if (existingUser.rows.length > 0) {
+      return response.status(409).send('User already exists with this email.');
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Default role to 'user' if not provided
+    const userRole = role || 'user';
 
     db.query(
       'INSERT INTO users (name, email, password, role) VALUES ($1, $2, $3, $4) RETURNING *',
-      [name, email, hashedPassword, role],
+      [name, email, hashedPassword, userRole],
       (error, results) => {
         if (error) {
           console.log("Error creating user: ", error);
           response.status(500).send(`User not created`);
+        } else {
+          response.status(201).send(`User added with ID: ${results.rows[0].id}`);
         }
-        response.status(201).send(`User added with ID: ${results.rows[0].id}`);
       }
     );
-  } catch(error) {
+  } catch (error) {
     console.log("Error creating user: ", error);
     response.status(500).send(`User not created`);
   }
 };
+
+
 
 const updateUser = (request, response) => {
   const id = parseInt(request.params.id);

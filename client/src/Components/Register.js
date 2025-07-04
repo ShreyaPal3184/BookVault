@@ -1,261 +1,195 @@
-// import React, { useState } from 'react';
-// import { Container, Form, Button, Row, Col } from 'react-bootstrap';
-// import axios from 'axios';
-// import { toast } from 'react-toastify';
-// import { Link, useNavigate } from 'react-router-dom';
-// import styled from 'styled-components';
-// import loginPageImage from '../Assets/loginPageImage.jpg'; // Import your animated image
-
-// const StyledContainer = styled(Container)`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   height: 100vh; /* Full height of the screen */
-//   width: 100vw;
-//   padding: 0;
-//   margin: 0;
-// `;
-
-// const RegisterPageImage = styled.img`
-//   width: 100%;
-//   max-width: 100%; /* Ensure image doesn't exceed container width */
-//   height: auto;
-//   border-radius: 10px; /* Rounded corners for the image */
-//   margin-top: 80px;
-// `;
-
-// const RegisterFormContainer = styled.div`
-//   background: #ffffff;
-//   padding: 30px;
-//   border-radius: 10px;
-//   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-//   background: linear-gradient(-225deg, #007bff 0%, #B8DCFF 48%, #6BBBFF 100%); /* Blue gradient matching #007bff */
-// `;
-
-// const Register = () => {
-//   const [name, setName] = useState('');
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [confirmPassword, setConfirmPassword] = useState('');
-//   const navigate = useNavigate();
-
-//   const handleRegister = async (e) => {
-//     e.preventDefault();
-//     if (password !== confirmPassword) {
-//       toast.error("Passwords do not match");
-//     } else {
-//       try {
-//         const response = await axios.post('http://localhost:3001/users', { name, email, password });
-//         console.log(response.data);
-//         toast.success(response.data);
-//         navigate('/login');
-//       } catch (error) {
-//         console.log(error);
-//         toast.error('Registration failed - please try again.');
-//       }
-//     }
-//   };
-
-//   return (
-//     <StyledContainer>
-//       <Row className="justify-content-md-center">
-//         <Col md={6}>
-//           <RegisterPageImage src={loginPageImage} alt="Register Page Image" />
-//         </Col>
-//         <Col md={6}>
-//           <RegisterFormContainer>
-//             <h2 className="text-center mb-4">Register</h2>
-//             <Form onSubmit={handleRegister}>
-//               <Form.Group controlId="formBasicName">
-//                 <Form.Label>Name</Form.Label>
-//                 <Form.Control
-//                   type="text"
-//                   placeholder="Enter your name"
-//                   value={name}
-//                   onChange={(e) => setName(e.target.value)}
-//                 />
-//               </Form.Group>
-
-//               <Form.Group controlId="formBasicEmail" className="mt-3">
-//                 <Form.Label>Email address</Form.Label>
-//                 <Form.Control
-//                   type="email"
-//                   placeholder="Enter email"
-//                   value={email}
-//                   onChange={(e) => setEmail(e.target.value)}
-//                 />
-//               </Form.Group>
-
-//               <Form.Group controlId="formBasicPassword" className="mt-3">
-//                 <Form.Label>Password</Form.Label>
-//                 <Form.Control
-//                   type="password"
-//                   placeholder="Password"
-//                   value={password}
-//                   onChange={(e) => setPassword(e.target.value)}
-//                 />
-//               </Form.Group>
-
-//               <Form.Group controlId="formConfirmPassword" className="mt-3">
-//                 <Form.Label>Confirm Password</Form.Label>
-//                 <Form.Control
-//                   type="password"
-//                   placeholder="Confirm Password"
-//                   value={confirmPassword}
-//                   onChange={(e) => setConfirmPassword(e.target.value)}
-//                 />
-//               </Form.Group>
-
-//               <Button variant="outline-light" type="submit" className="mt-4 btn-block">
-//                 Register
-//               </Button>
-//             </Form>
-//             <p className="text-center mt-3">
-//               Already have an account? <Link to="/login">Login here</Link>
-//             </p>
-//           </RegisterFormContainer>
-//         </Col>
-//       </Row>
-//     </StyledContainer>
-//   );
-// };
-
-// export default Register;
-
-
-import React, { useState } from 'react';
-import { Container, Form, Button, Row, Col } from 'react-bootstrap';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import loginPageImage from '../Assets/loginPageImage.jpg'; // Import your animated image
+import React, { useState } from "react";
+import { Container, Form, Button, Row, Col } from "react-bootstrap";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import formImage from "../Assets/register.jpg";
 
 const StyledContainer = styled(Container)`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh; /* Full height of the screen */
-  width: 100vw;
-  padding: 0;
-  margin: 0;
+  min-height: 80vh;
+  padding: 0 20px;
+  background: linear-gradient(135deg, rgb(249, 253, 255), #ffffff);
 `;
 
 const RegisterPageImage = styled.img`
   width: 100%;
-  max-width: 100%; /* Ensure image doesn't exceed container width */
+  border-radius: 16px;
+  object-fit: cover;
   height: auto;
-  border-radius: 10px; /* Rounded corners for the image */
-  margin-top: 80px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 20px;
+  }
 `;
 
 const RegisterFormContainer = styled.div`
   background: #ffffff;
-  padding: 30px;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease;
+  animation: fadeIn 0.5s ease-in;
+
+  h2 {
+    font-weight: 700;
+    color: #007bff;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+`;
+
+const StyledFormControl = styled(Form.Control)`
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(-225deg, #007bff 0%, #B8DCFF 48%, #6BBBFF 100%); /* Blue gradient matching #007bff */
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ced4da;
+  transition: all 0.3s ease;
+
+  &:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+`;
+
+const StyledButton = styled(Button)`
+  width: 100%;
+  padding: 12px;
+  font-weight: bold;
+  border-radius: 10px;
+  font-size: 16px;
+  background-color: #007bff;
+  border: none;
+  transition: 0.3s ease;
+
+  &:hover {
+    background-color: #0056b3;
+  }
 `;
 
 const Register = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [role, setRole] = useState('user'); // Default to 'user'
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordError, setPasswordError] = useState('');
+  const [role] = useState("user");
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       toast.error("Passwords do not match");
+    }
+    if (password.length < 8) {
+      toast.error("Password must be at least 8 characters long.");
+      return;
     } else {
       try {
-        const response = await axios.post('http://localhost:3001/api/users/register', { name, email, password, role });
-        console.log(response.data);
-        toast.success('Registration successful!');
-        navigate('/login');
+        const response = await axios.post(
+          "http://localhost:3001/api/users/register",
+          {
+            name,
+            email,
+            password,
+            role,
+          }
+        );
+        toast.success("Registration successful!");
+        navigate("/login");
       } catch (error) {
-        console.log(error);
-        toast.error('Registration failed - please try again.');
+        if (error.response && error.response.status === 409) {
+          toast.error("User already exists.");
+        } else {
+          toast.error("Registration failed - please try again.");
+        }
+
+        setName("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
       }
     }
   };
 
   return (
-    <StyledContainer>
-      <Row className="justify-content-md-center">
+    <StyledContainer fluid>
+      <Row className="w-100 align-items-center">
         <Col md={6}>
-          <RegisterPageImage src={loginPageImage} alt="Register Page Image" />
+          <RegisterPageImage src={formImage} alt="Register" />
         </Col>
         <Col md={6}>
           <RegisterFormContainer>
-            <h2 className="text-center mb-4">Register</h2>
+            <h2>Create Your Account</h2>
             <Form onSubmit={handleRegister}>
-              <Form.Group controlId="formBasicName">
+              <Form.Group controlId="formBasicName" className="mb-3">
                 <Form.Label>Name</Form.Label>
-                <Form.Control
+                <StyledFormControl
                   type="text"
                   placeholder="Enter your name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
               </Form.Group>
-
-              <Form.Group controlId="formBasicEmail" className="mt-3">
+              <Form.Group controlId="formBasicEmail" className="mb-3">
                 <Form.Label>Email address</Form.Label>
-                <Form.Control
+                <StyledFormControl
                   type="email"
                   placeholder="Enter email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </Form.Group>
-
-              <Form.Group controlId="formBasicPassword" className="mt-3">
+              <Form.Group controlId="formBasicPassword" className="mb-3">
                 <Form.Label>Password</Form.Label>
-                <Form.Control
+                <StyledFormControl
                   type="password"
                   placeholder="Password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    setPassword(value);
+
+                    if (value.length < 8) {
+                      setPasswordError(
+                        "Password must be at least 8 characters long."
+                      );
+                    } else {
+                      setPasswordError("");
+                    }
+                  }}
                 />
+                {passwordError && (
+                  <Form.Text className="text-danger">{passwordError}</Form.Text>
+                )}
               </Form.Group>
 
-              <Form.Group controlId="formConfirmPassword" className="mt-3">
+              <Form.Group controlId="formConfirmPassword" className="mb-3">
                 <Form.Label>Confirm Password</Form.Label>
-                <Form.Control
+                <StyledFormControl
                   type="password"
                   placeholder="Confirm Password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
               </Form.Group>
-
-              {/* Add Radio Buttons for Role Selection */}
-              <Form.Group className="mt-3">
-                <Form.Label>Role</Form.Label>
-                <div>
-                  <Form.Check
-                    type="radio"
-                    label="User"
-                    value="user"
-                    checked={role === 'user'}
-                    onChange={() => setRole('user')}
-                  />
-                  <Form.Check
-                    type="radio"
-                    label="Admin"
-                    value="admin"
-                    checked={role === 'admin'}
-                    onChange={() => setRole('admin')}
-                  />
-                </div>
-              </Form.Group>
-
-              <Button variant="outline-light" type="submit" className="mt-4 btn-block">
+              <StyledButton variant="primary" type="submit">
                 Register
-              </Button>
+              </StyledButton>
             </Form>
             <p className="text-center mt-3">
               Already have an account? <Link to="/login">Login here</Link>

@@ -5,7 +5,7 @@ import { UserProvider } from './Components/UserContext';
 import { Footer } from './Components/Common/Footer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';   
-import Home from './Components/Home';
+import Home from './Components/UserComponents/Home';
 import Register from './Components/Register';
 import Login from './Components/Login';
 import Books from './Components/UserComponents/Books';
@@ -16,15 +16,14 @@ import RentedBooksPage from './Components/AdminComponents/RentedBooksPage';
 import UsersPage from './Components/AdminComponents/UsersPage';
 import BooksPage from './Components/AdminComponents/BooksPage';
 import CurrentlyRentedPage from './Components/AdminComponents/CurrentlyRentedBooks';
-import { NavigationBar } from './Components/Common/NavigationBar';
+import AdminNavBar from "./AdminNavBar";
 
 function App() {
   return (
     <React.Fragment>
       <UserProvider>
         <Router>
-        <NavigationBar />
-          {/* <NavigationBar /> */}
+          <AdminNavBar />
             <div className="App">
               <Routes>
                 <Route exact path="/" element={<Home />} />

@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "install": "^0.13.0",
+    "npm": "^11.4.2",
+    "react": "^19.1.0",
+    "react-countup": "^6.5.3",
+    "react-icons": "^5.5.0",
+    "react-intersection-observer": "^9.16.0"
+  }
+}

@@ -1,97 +1,127 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// Styled component for the container
+// Wrapper for the full section
+const SectionWrapper = styled.section`
+   padding: 50px 20px;
+`;
+
+// Centralized container
 const Container = styled.div`
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 10px;
 `;
 
-// Styled component for each individual point
-const Point = styled.div`
-  margin-bottom: 20px;
+// Title for section
+const SectionTitle = styled.h2`
+  text-align: center;
+  font-size: 3rem;
+  color: #000000;
+  margin-bottom: 30px;
+  font-weight: 600;
+`;
+
+// Wrapper for each step
+const Step = styled.div`
   display: flex;
-  align-items: flex-start; /* Align items at the start */
+  align-items: flex-start;
+  margin-bottom: 30px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 `;
 
-// Styled component for the blue circle containing the point number
-const PointNumber = styled.div`
-  font-size: 1.1rem;
+// Circle or icon
+const StepNumber = styled.div`
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1.2rem;
   font-weight: bold;
-  color: #fff; /* White text color */
-  background-color: #007bff; /* Blue background */
-  width: 24px; /* Size of the circle */
-  height: 24px;
-  border-radius: 50%; /* Rounded shape */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 10px; /* Spacing between circle and heading */
+  margin-right: 15px;
+
+  @media (max-width: 768px) {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
 `;
 
-// Styled component for the point heading
-const PointHeading = styled.h3`
-  font-size: 1.1rem;
-  color: #007bff; /* Blue color for the heading */
-  margin: 0; /* Remove default margin */
+// Text block
+const StepContent = styled.div`
+  max-width: 800px;
 `;
 
-// Styled component for the point description
-const PointDescription = styled.p`
+// Heading
+const StepHeading = styled.h3`
+  color: #007bff;
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+`;
+
+// Description
+const StepDescription = styled.p`
   font-size: 1rem;
   line-height: 1.6;
+  color: #444;
 `;
 
 const HowItWorks = () => {
+  const steps = [
+    {
+      title: 'Register or Login',
+      description: 'Create an account to start your BookVault journey. Once registered, simply log in to access your dashboard.',
+    },
+    {
+      title: 'Browse for Books',
+      description: "Head to the 'Books' section to explore our wide collection and find your next great read.",
+    },
+    {
+      title: 'Rent Your Favorite Books',
+      description: "Click 'Rent' on any book you'd like to borrow. It's added to your rented list instantly.",
+    },
+    {
+      title: 'Manage Rented Books',
+      description: "Use the 'MyBooks' section to track current rentals, due dates, and return them when you're done.",
+    },
+    {
+      title: 'Chat with Rasa Assistant',
+      description: "Need help? Use our integrated Rasa chatbot via the 'Chat' button for support or queries.",
+    },
+    {
+      title: 'Admin Login',
+      description: "Admins can log in via the Admin portal to access powerful management tools.",
+    },
+    {
+      title: 'Manage Users & Books',
+      description: "Admins can add/edit/remove books, manage user accounts, and monitor all book rentals.",
+    }
+  ];
+
   return (
-    <Container>
-      <Point>
-        <PointNumber>1</PointNumber>
-        <div>
-          <PointHeading>Register or Login</PointHeading>
-          <PointDescription>
-            To become a user of BookVault library, you must register yourself. After registering, login.
-          </PointDescription>
-        </div>
-      </Point>
-      <Point>
-        <PointNumber>2</PointNumber>
-        <div>
-          <PointHeading>Browse for books to rent</PointHeading>
-          <PointDescription>
-            We have a large collection of books. Browse the books from 'Books' section to find your favourites.
-          </PointDescription>
-        </div>
-      </Point>
-      <Point>
-        <PointNumber>3</PointNumber>
-        <div>
-          <PointHeading>View your rented books</PointHeading>
-          <PointDescription>
-            Click on 'MyBooks' on the navigation bar to view your rented books.
-          </PointDescription>
-        </div>
-      </Point>
-      <Point>
-        <PointNumber>4</PointNumber>
-        <div>
-          <PointHeading>Return books</PointHeading>
-          <PointDescription>
-            Go to 'MyBooks' section and click on the 'Return' button to return the rented books.
-          </PointDescription>
-        </div>
-      </Point>
-      <Point>
-        <PointNumber>5</PointNumber>
-        <div>
-          <PointHeading>Rasa Chatbot</PointHeading>
-          <PointDescription>
-            Clicking on the 'Chat' button on the navigation bar will take you to the Rasa chatbot. You can ask questions or seek assistance. 
-          </PointDescription>
-        </div>
-      </Point>
-    </Container>
+    <SectionWrapper>
+      <Container>
+        <SectionTitle>How It Works</SectionTitle>
+        {steps.map((step, index) => (
+          <Step key={index}>
+            <StepNumber>{index + 1}</StepNumber>
+            <StepContent>
+              <StepHeading>{step.title}</StepHeading>
+              <StepDescription>{step.description}</StepDescription>
+            </StepContent>
+          </Step>
+        ))}
+      </Container>
+    </SectionWrapper>
   );
 };
 

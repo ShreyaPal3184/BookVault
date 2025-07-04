@@ -123,7 +123,7 @@ const AdminDashboard = () => {
 
 
         {/* Currently Rented Books Box */}
-        <StyledBox onClick={() => navigate('/currently-rented-books')}>
+        <StyledBox onClick={() => navigate('/currently-rented')}>
           <Card.Header>
             <h4>Currently Rented Books</h4>
           </Card.Header>
