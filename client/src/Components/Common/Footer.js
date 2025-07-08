@@ -55,7 +55,7 @@ const Styles = styled.div`
   .footer-logo div {
     font-size: 2.5rem;
     font-weight: bold;
-    color: rgb(2, 46, 93);
+    color: #022e5d;
   }
 
   .footer-logo h1 {

@@ -13,6 +13,7 @@ router.get('/get', bookController.getBooks);
 router.get('/rented-count', bookController.getBookRentalCount);
 router.get('/top-rented', bookController.getTopRentedBooks);
 router.get('/currently-rented', bookController.getCurrentlyRentedBooks);
-router.get('/category/:categoryId', bookController.getBooksByCategory);
+router.get('/category', bookController.getBookCategory);
+router.get('/category/:categoryName', bookController.getBooksByCategory);
 
 export default router;

@@ -12,6 +12,7 @@ import Books from './Components/UserComponents/Books';
 import MyBooks from "./Components/UserComponents/MyBooks";
 import AboutUs from './Components/UserComponents/AboutUs';
 import AdminHomepage from './Components/AdminComponents/AdminHomePage';
+import AdminDashboard from './Components/AdminComponents/AdminDashboard';
 import RentedBooksPage from './Components/AdminComponents/RentedBooksPage';
 import UsersPage from './Components/AdminComponents/UsersPage';
 import BooksPage from './Components/AdminComponents/BooksPage';
@@ -34,6 +35,7 @@ function App() {
                 <Route exact path="/register" element={<Register/>} />
                 <Route exact path="/about" element={<AboutUs />} />
                 <Route exact path="/admin" element={<AdminHomepage />} />
+                <Route exact path="/admin-dashboard" element={<AdminDashboard />} />
                 <Route exact path="/rented-count" element={<RentedBooksPage />} />
                 <Route exact path="/users" element={<UsersPage />} />
                 <Route exact path="/books-get" element={<BooksPage />} />

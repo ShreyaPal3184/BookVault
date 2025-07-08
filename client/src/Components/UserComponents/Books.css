@@ -1,0 +1,35 @@
+.custom-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.custom-col {
+  width: calc(20% - 0.8rem);
+  margin-bottom: 20px;
+}
+
+@media (max-width: 1200px) {
+  .custom-col {
+    width: calc(25% - 0.8rem);
+  }
+}
+
+@media (max-width: 992px) {
+  .custom-col {
+    width: calc(33.33% - 0.8rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .custom-col {
+    width: calc(50% - 0.8rem);
+  }
+}
+
+@media (max-width: 576px) {
+  .custom-col {
+    width: 100%;
+  }
+}

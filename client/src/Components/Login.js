@@ -241,11 +241,12 @@ const Register = () => {
         setUser({ id: response.data.id, name: response.data.name, role: response.data.role });
 
         // Navigate based on role
-        if (response.data.role === 'admin') {
-          navigate('/admin'); // Redirect to admin homepage
-        } else {
-          navigate('/'); // Redirect to user homepage
-        }
+        // if (response.data.role === 'admin') {
+        //   navigate('/admin'); 
+        // } else {
+        //   navigate('/'); 
+        //}
+        navigate('/');
       } else {
         console.log("Login Failed");
         toast.error(`Login failed.`);
