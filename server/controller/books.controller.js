@@ -99,7 +99,9 @@ const getNonFiction = (request, response) => {
 
 const getBooks = (request, response) => {
   db.query(
-    `SELECT id, name, author, category, quantity, imagename FROM books`,
+    `SELECT b.id, b.name, b.author, bc.category, b.quantity, b.imagename 
+     FROM books AS b 
+     JOIN book_category AS bc ON b.category = bc.id`,
     (error, results) => {
       if (error) {
         console.error("Error executing query", error.stack);
@@ -110,6 +112,7 @@ const getBooks = (request, response) => {
     }
   );
 };
+
 
 const getBookRentalCount = (request, response) => {
   db.query(
@@ -128,8 +131,17 @@ const getBookRentalCount = (request, response) => {
 
 const getTopRentedBooks = (request, response) => {
   db.query(
-    `SELECT book_id, name, COUNT(*) AS rental_count FROM booksonrent JOIN books ON booksonrent.book_id = books.id 
-        GROUP BY book_id, name ORDER BY rental_count DESC LIMIT 5`,
+    `SELECT 
+       book_id, 
+       name, 
+       author, 
+       imagename, 
+       COUNT(*) AS rental_count 
+     FROM booksonrent 
+     JOIN books ON booksonrent.book_id = books.id 
+     GROUP BY book_id, name, author, imagename 
+     ORDER BY rental_count DESC 
+     LIMIT 5`,
     (error, results) => {
       if (error) {
         console.error("Error executing query", error.stack);
@@ -140,6 +152,7 @@ const getTopRentedBooks = (request, response) => {
     }
   );
 };
+
 
 const getCurrentlyRentedBooks = (request, response) => {
   db.query(

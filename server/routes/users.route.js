@@ -9,5 +9,8 @@ router.post('/register', userController.createUser);
 router.put('/update/:id', userController.updateUser);
 router.delete('/delete/:id', userController.deleteUser);
 router.post('/login', userController.login);
+router.patch('/:id/role', userController.updateUserRoleById);
+router.patch('/role', userController.getUsersByRole);
+
 
 export default router;

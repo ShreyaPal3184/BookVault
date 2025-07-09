@@ -116,7 +116,7 @@ export const Footer = () => (
                 <a href="/contact">Contact</a>
               </li>
               <li>
-                <a href="/faq">FAQs</a>
+                <a href="/books">Books</a>
               </li>
             </ul>
           </Col>

@@ -221,7 +221,7 @@ const Books = () => {
                       <strong>Author:</strong> {book.author}
                     </p>
                     <p>
-                      <strong>Genre:</strong> {book.genre}
+                      <strong>Genre:</strong> {book.category}
                     </p>
                     <p>
                       <strong>Quantity:</strong> {book.quantity}

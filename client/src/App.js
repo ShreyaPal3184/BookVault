@@ -17,6 +17,7 @@ import RentedBooksPage from './Components/AdminComponents/RentedBooksPage';
 import UsersPage from './Components/AdminComponents/UsersPage';
 import BooksPage from './Components/AdminComponents/BooksPage';
 import CurrentlyRentedPage from './Components/AdminComponents/CurrentlyRentedBooks';
+import UserManagement from './Components/AdminComponents/UserManagement';
 import { NavigationBar } from './Components/Common/NavigationBar';
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
                 <Route exact path="/users" element={<UsersPage />} />
                 <Route exact path="/books-get" element={<BooksPage />} />
                 <Route exact path="/currently-rented" element={<CurrentlyRentedPage />} />
+                <Route exact path="/admin/user-management" element={<UserManagement />} />                
               </Routes>
             </div>
         </Router>
