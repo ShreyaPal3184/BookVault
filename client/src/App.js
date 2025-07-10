@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { UserProvider } from './Components/UserContext';
-// import { NavigationBar } from './Components/Common/NavigationBar';
 import { Footer } from './Components/Common/Footer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';   
@@ -18,7 +17,9 @@ import UsersPage from './Components/AdminComponents/UsersPage';
 import BooksPage from './Components/AdminComponents/BooksPage';
 import CurrentlyRentedPage from './Components/AdminComponents/CurrentlyRentedBooks';
 import UserManagement from './Components/AdminComponents/UserManagement';
+import BookManagement from './Components/AdminComponents/BookManagement';
 import { NavigationBar } from './Components/Common/NavigationBar';
+import { Book } from 'lucide-react';
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
                 <Route exact path="/books-get" element={<BooksPage />} />
                 <Route exact path="/currently-rented" element={<CurrentlyRentedPage />} />
                 <Route exact path="/admin/user-management" element={<UserManagement />} />                
+                <Route exact path="/admin/book-management" element={<BookManagement />} />                
               </Routes>
             </div>
         </Router>

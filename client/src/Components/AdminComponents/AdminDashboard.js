@@ -100,7 +100,7 @@ function AdminDashboard() {
           <Description>
             Add, update, delete books and manage book inventory easily.
           </Description>
-          <Button onClick={() => navigate("/admin/books-management")}>Manage Books</Button>
+          <Button onClick={() => navigate("/admin/book-management")}>Manage Books</Button>
         </Card>
 
         <Card>

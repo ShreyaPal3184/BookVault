@@ -17,7 +17,7 @@ const getBooksById = (request, response) => {
   );
 };
 
-const createBook = (request, response) => {
+const addBook = (request, response) => {
   const { name, author, category, quantity, imagename } = request.body;
 
   db.query(
@@ -112,6 +112,46 @@ const getBooks = (request, response) => {
     }
   );
 };
+
+// const getBooks = (request, response) => {
+//   const { title, author, genre, available } = request.query;
+
+//   let baseQuery = `
+//     SELECT b.id, b.name, b.author, bc.category, b.quantity, b.imagename, b.available 
+//     FROM books AS b 
+//     JOIN book_category AS bc ON b.category = bc.id
+//     WHERE 1 = 1
+//   `;
+
+//   const queryParams = [];
+
+//   if (title) {
+//     queryParams.push(`%${title}%`);
+//     baseQuery += ` AND b.name ILIKE $${queryParams.length}`;
+//   }
+//   if (author) {
+//     queryParams.push(`%${author}%`);
+//     baseQuery += ` AND b.author ILIKE $${queryParams.length}`;
+//   }
+//   if (genre) {
+//     queryParams.push(genre);
+//     baseQuery += ` AND bc.category = $${queryParams.length}`;
+//   }
+//   if (available !== undefined) {
+//     queryParams.push(available === "true");
+//     baseQuery += ` AND b.quantity > 0`;
+//   }
+
+//   db.query(baseQuery, queryParams, (error, results) => {
+//     if (error) {
+//       console.error("Error executing query", error.stack);
+//       response.status(500).json({ error: "Error fetching books" });
+//     } else {
+//       response.status(200).json(results.rows);
+//     }
+//   });
+// };
+
 
 
 const getBookRentalCount = (request, response) => {
@@ -210,7 +250,7 @@ const getBooksByCategory = (request, response) => {
 
 export {
   getBooksById,
-  createBook,
+  addBook,
   updateBook,
   deleteBook,
   getFiction,
