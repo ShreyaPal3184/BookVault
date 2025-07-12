@@ -64,6 +64,11 @@ const Styles = styled.div`
     height: 45px;
     width: auto;
     margin-right: 10px;
+
+    @media (max-width: 576px) {
+      height: 35px;
+      margin-right: 6px;
+    }
   }
 
   .navbar-button {
@@ -106,6 +111,11 @@ const Styles = styled.div`
     font-weight: bold;
     font-size: 1.5rem;
     color: #022e5d !important;
+
+    @media (max-width: 576px) {
+      font-size: 1.2rem;
+      margin-left: 0; 
+    }
   }
 
   .dropdown-item:active {
@@ -147,10 +157,16 @@ function NavigationBar() {
   <Styles>
     <Navbar expand="xl" expanded={expanded} onToggle={() => setExpanded(!expanded)}>
       <div className="container-fluid d-flex justify-content-between align-items-center">
-        <Navbar.Brand as={NavLink} to="/" className="d-flex align-items-center">
+        {/* <Navbar.Brand as={NavLink} to="/" className="d-flex align-items-center">
           <img src={logo} className="logo" alt="BookVault Logo" />
           BookVault
-        </Navbar.Brand>
+        </Navbar.Brand> */}
+
+        <NavLink to="/" className="navbar-brand d-flex align-items-center" onClick={() => setExpanded(false)}>
+  <img src={logo} className="logo" alt="BookVault Logo" />
+  BookVault
+</NavLink>
+
 
         <div className="d-flex align-items-center">
           {/* <Button
