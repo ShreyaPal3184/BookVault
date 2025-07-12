@@ -19,7 +19,6 @@ import CurrentlyRentedPage from './Components/AdminComponents/CurrentlyRentedBoo
 import UserManagement from './Components/AdminComponents/UserManagement';
 import BookManagement from './Components/AdminComponents/BookManagement';
 import { NavigationBar } from './Components/Common/NavigationBar';
-import { Book } from 'lucide-react';
 
 function App() {
   return (

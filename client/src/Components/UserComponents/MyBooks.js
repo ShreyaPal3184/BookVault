@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import styled from "styled-components";
 import viewImage from "../../Assets/loginToView.jpg";
 
+const baseURL = process.env.REACT_APP_BASE_URL;
+
 const StyledContainer = styled(Container)`
   text-align: center;
 
@@ -64,7 +66,7 @@ const MyBooks = () => {
 
       try {
         const response = await axios.get(
-          `http://localhost:3001/api/booksonrent/get/${user.id}`
+          `${baseURL}/api/booksonrent/get/${user.id}`
         );
         setBooks(response.data);
       } catch (error) {
@@ -81,7 +83,7 @@ const MyBooks = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:3001/api/booksonrent/return/${id}`
+        `${baseURL}/api/booksonrent/return/${id}`
       );
       console.log(response.data);
       toast.success(`Book returned`);

@@ -3,6 +3,8 @@ import styled from "styled-components";
 import axios from "axios";
 import { toast } from "react-toastify";
 
+const baseURL = process.env.REACT_APP_BASE_URL;
+
 const Container = styled.div`
   padding: 2rem;
   max-width: 1200px;
@@ -136,18 +138,18 @@ const UserManagement = () => {
   }, []);
 
   const fetchUsers = async () => {
-    const res = await axios.get("http://localhost:3001/api/users/get");
+    const res = await axios.get(`${baseURL}/api/users/get`);
     setUsers(res.data);
   };
 
   const deleteUser = async (id) => {
-    await axios.delete(`http://localhost:3001/api/users/delete/${id}`);
+    await axios.delete(`${baseURL}/api/users/delete/${id}`);
     fetchUsers();
   };
 
   const toggleRole = async (id, currentRole) => {
     const newRole = currentRole === "admin" ? "user" : "admin";
-    await axios.patch(`http://localhost:3001/api/users/${id}/role`, {
+    await axios.patch(`${baseURL}/api/users/${id}/role`, {
       role: newRole,
     });
     fetchUsers();
@@ -172,7 +174,7 @@ const UserManagement = () => {
     }
 
     try {
-      await axios.post("http://localhost:3001/api/users/register", {
+      await axios.post(`${baseURL}/api/users/register`, {
         name,
         email,
         password,

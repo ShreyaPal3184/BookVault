@@ -14,6 +14,8 @@ import { useUser } from "../UserContext";
 import styled from "styled-components";
 import "./Books.css"
 
+const baseURL = process.env.REACT_APP_BASE_URL;
+
 const StyledCard = styled.div`
   .flip-card {
     background-color: transparent;
@@ -112,7 +114,7 @@ const Books = () => {
   const fetchCategories = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3001/api/books/category"
+        `${baseURL}/api/books/category`
       );
       setCategories(response.data || []);
     } catch (error) {
@@ -124,10 +126,10 @@ const Books = () => {
     try {
       let response;
       if (category === "All") {
-        response = await axios.get("http://localhost:3001/api/books/get");
+        response = await axios.get(`${baseURL}/api/books/get`);
       } else {
         response = await axios.get(
-          `http://localhost:3001/api/books/category/${category}`
+          `${baseURL}/api/books/category/${category}`
         );
       }
       setBooks(response.data || []);
@@ -148,7 +150,7 @@ const Books = () => {
       return;
     }
     try {
-      await axios.post("http://localhost:3001/api/booksonrent/rent", {
+      await axios.post(`${baseURL}/api/booksonrent/rent`, {
         user_id: userId,
         book_id: bookId,
       });
@@ -162,18 +164,6 @@ const Books = () => {
   return (
     <Container className="books-container">
       <ToastContainer />
-      {/* <Form.Group controlId="categorySelect" className="mb-3">
-        <Form.Label>Select Category</Form.Label>
-        <Form.Select value={selectedCategory} onChange={handleCategoryChange}>
-          <option value="All">All</option>
-          {categories.map((categoryObj, idx) => (
-            <option key={idx} value={categoryObj.category}>
-              {categoryObj.category}
-            </option>
-          ))}
-        </Form.Select>
-      </Form.Group> */}
-
       <Row className="mb-4 align-items-center">
         <Col xs={12} sm={6} md={4} lg={3}>
           <div className="p-3 border rounded shadow-sm bg-light">

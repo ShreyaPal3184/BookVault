@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
+const baseURL = process.env.REACT_APP_BASE_URL;
+
 const Section = styled.section`
   padding: 40px 20px;
   text-align: center;
@@ -61,7 +63,7 @@ const TopRentedBooks = () => {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3001/api/books/top-rented')
+    axios.get(`${baseURL}/api/books/top-rented`)
       .then((res) => {
         setBooks(res.data);
       })

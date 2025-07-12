@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Container, Table } from 'react-bootstrap';
 
+const baseURL = process.env.REACT_APP_BASE_URL;
+
 const BooksPage = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -9,7 +11,7 @@ const BooksPage = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/books/get');
+        const response = await fetch(`${baseURL}/api/books/get`);
         const data = await response.json();
         setBooks(data);
         setLoading(false);

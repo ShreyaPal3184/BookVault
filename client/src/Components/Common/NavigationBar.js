@@ -133,10 +133,8 @@ function NavigationBar() {
   };
 
   const handleLogout = () => {
-    // Clear user session (example)
     localStorage.removeItem("user");
-    // Redirect or update state
-    navigate("/login"); // or use navigate('/login') if using React Router
+    navigate("/login"); 
   };
 
   return (

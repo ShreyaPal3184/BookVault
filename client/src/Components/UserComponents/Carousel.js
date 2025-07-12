@@ -5,7 +5,6 @@ import carouselImage1 from "../../Assets/carouselImage1.png";
 import carouselImage2 from "../../Assets/carouselImage2.png";
 import carouselImage3 from "../../Assets/carouselImage3.png";
 
-// Styled components for the page layout
 const Container = styled.div`
   display: flex;
   justify-content: center;

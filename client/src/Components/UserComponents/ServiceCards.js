@@ -5,7 +5,6 @@ import bookIcon from "../../Assets/BookVault_Logo.png";
 import myBooksIcon from "../../Assets/BookVault_Logo.png";
 import adminIcon from "../../Assets/BookVault_Logo.png";
 
-// Styled components
 const CardContainer = styled.div`
   padding: 60px 20px;
   display: flex;
@@ -63,28 +62,6 @@ const CardText = styled.p`
   font-size: 1rem;
   color: #444;
 `;
-
-// Service data array
-// const services = [
-//   {
-//     icon: collectionIcon,
-//     title: 'Extensive Book Collection',
-//     text:
-//       'Discover a vast selection of books across genres. Whether you love mysteries, romance, or non-fiction, there’s something for everyone at BookVault.',
-//   },
-//   {
-//     icon: planIcon,
-//     title: 'Flexible Rental Plans',
-//     text:
-//       'Choose from a variety of rental durations. Whether short or long-term, we tailor plans to fit your reading pace and preferences.',
-//   },
-//   {
-//     icon: ratingIcon,
-//     title: 'Highly Rated Books',
-//     text:
-//       'Access our top-rated titles, handpicked from bestseller lists and user reviews. Enjoy quality reads you can trust and love.',
-//   },
-// ];
 
 const services = [
   {

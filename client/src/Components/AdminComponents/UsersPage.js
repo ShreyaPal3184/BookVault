@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Container } from 'react-bootstrap';
 
+const baseURL = process.env.REACT_APP_BASE_URL;
+
 const UsersPage = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -9,7 +11,7 @@ const UsersPage = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/users/get'); // Adjust the endpoint as needed
+        const response = await fetch(`${baseURL}/api/users/get`); 
         const data = await response.json();
         setUsers(data);
         setLoading(false);

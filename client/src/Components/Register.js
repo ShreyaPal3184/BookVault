@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import formImage from "../Assets/register.jpg";
 
+const baseURL = process.env.REACT_APP_BASE_URL;
+
 const StyledContainer = styled(Container)`
   display: flex;
   align-items: center;
@@ -101,7 +103,7 @@ const Register = () => {
     } else {
       try {
         const response = await axios.post(
-          "http://localhost:3001/api/users/register",
+          `${baseURL}/api/users/register`,
           {
             name,
             email,

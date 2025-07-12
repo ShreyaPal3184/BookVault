@@ -1,19 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// Wrapper for the full section
 const SectionWrapper = styled.section`
    padding: 50px 20px;
 `;
 
-// Centralized container
 const Container = styled.div`
   max-width: 1000px;
   margin: 0 auto;
   padding: 10px;
 `;
 
-// Title for section
 const SectionTitle = styled.h2`
   text-align: center;
   font-size: 3rem;
@@ -22,7 +19,6 @@ const SectionTitle = styled.h2`
   font-weight: 600;
 `;
 
-// Wrapper for each step
 const Step = styled.div`
   display: flex;
   align-items: flex-start;
@@ -35,7 +31,6 @@ const Step = styled.div`
   }
 `;
 
-// Circle or icon
 const StepNumber = styled.div`
   background-color: #007bff;
   color: #fff;
@@ -56,19 +51,16 @@ const StepNumber = styled.div`
   }
 `;
 
-// Text block
 const StepContent = styled.div`
   max-width: 800px;
 `;
 
-// Heading
 const StepHeading = styled.h3`
   color: #007bff;
   font-size: 1.3rem;
   margin-bottom: 8px;
 `;
 
-// Description
 const StepDescription = styled.p`
   font-size: 1rem;
   line-height: 1.6;

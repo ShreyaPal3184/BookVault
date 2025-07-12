@@ -4,10 +4,12 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
+const baseURL = process.env.REACT_APP_BASE_URL;
+
 const DashboardContainer = styled(Container)`
   margin-top: 30px;
   display: flex;
-  flex-direction: row; /* Align items side by side */
+  flex-direction: row;
   justify-content: space-between;
 `;
 
@@ -33,12 +35,12 @@ const RightSideContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 500px; /* Same height as LeftStyledBox */
+  height: 500px;
   width: 40%;
 `;
 
 const StyledBox = styled(Card)`
-  height: 150px; /* Adjusted height to fit three boxes */
+  height: 150px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -62,7 +64,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchTopRentedBooks = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/books/top-rented');
+        const response = await axios.get(`${baseURL}/api/books/top-rented`);
         setTopRentedBooks(response.data);
       } catch (error) {
         console.error('Error fetching top rented books:', error);

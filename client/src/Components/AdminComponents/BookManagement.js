@@ -3,6 +3,8 @@ import styled from "styled-components";
 import axios from "axios";
 import { toast } from "react-toastify";
 
+const baseURL = process.env.REACT_APP_BASE_URL;
+
 const Container = styled.div`
   padding: 2rem;
   max-width: 1200px;
@@ -95,7 +97,7 @@ const BookManagement = () => {
 
   const fetchBooks = async () => {
     try {
-      const res = await axios.get("http://localhost:3001/api/books/get");
+      const res = await axios.get(`${baseURL}/api/books/get`);
       setBooks(res.data);
     } catch (err) {
       toast.error("Failed to fetch books");
@@ -104,7 +106,7 @@ const BookManagement = () => {
 
   const fetchCategories = async () => {
     try {
-      const res = await axios.get("http://localhost:3001/api/books/category");
+      const res = await axios.get(`${baseURL}/api/books/category`);
       setCategories(res.data);
     } catch (err) {
       toast.error("Failed to fetch categories");
@@ -113,7 +115,7 @@ const BookManagement = () => {
 
   const deleteBook = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/api/books/delete/${id}`);
+      await axios.delete(`${baseURL}/api/books/delete/${id}`);
       fetchBooks();
     } catch (err) {
       toast.error("Failed to delete book");
@@ -130,7 +132,7 @@ const BookManagement = () => {
     }
 
     try {
-      await axios.post("http://localhost:3001/api/books/create", newBook);
+      await axios.post(`${baseURL}/api/books/create`, newBook);
       toast.success("Book added!");
       setNewBook({ title: "", author: "", genre: "" });
       setShowCreateForm(false);
@@ -170,15 +172,6 @@ const BookManagement = () => {
             onChange={(e) => setNewBook({ ...newBook, author: e.target.value })}
             required
           />
-          {/* <Input
-            type="text"
-            placeholder="Genre"
-            value={newBook.genre}
-            onChange={(e) =>
-              setNewBook({ ...newBook, genre: e.target.value })
-            }
-            required
-          /> */}
           <select
             value={newBook.genre}
             onChange={(e) => setNewBook({ ...newBook, genre: e.target.value })}

@@ -1,25 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// Styled component for the card container
 const CardContainer = styled.div`
   display: flex;
   justify-content: space-around;
 `;
 
-// Styled component for each individual card
 const Card = styled.div`
-  width: 400px; /* Increased width */
+  width: 400px; 
   padding: 20px;
   margin: 10px;
   border-radius: 8px;
   text-align: center;
-  background-color: #f0f4ff; /* Light blue background */
+  background-color: #f0f4ff; 
 `;
 
-// Styled component for the heading (h3)
 const CardHeading = styled.h3`
-  color: #007bff; /* Blue color for headings */
+  color: #007bff; 
 `;
 
 const Cards = () => {
