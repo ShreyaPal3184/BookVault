@@ -191,7 +191,7 @@ const Books = () => {
         className="d-block d-md-none text-center mb-3 text-muted"
         style={{ fontSize: "0.95rem" }}
       >
-        📖 Tap on a card to view details. Tap again to flip back.
+        Tap on a card to view details. 
       </div>
 
       <div className="custom-row">

@@ -112,6 +112,7 @@ const Styles = styled.div`
     background-color: transparent !important;
     color: inherit !important;
   }
+
 `;
 
 function NavigationBar() {
@@ -132,127 +133,124 @@ function NavigationBar() {
     } else {
       navigate("/login");
     }
+    setExpanded(false);
   };
 
   const handleLogout = () => {
     localStorage.removeItem("user");
     navigate("/login"); 
+    setExpanded(false);
   };
 
   return (
-    <Styles>
-      {/* <Navbar expand="xl"> */}
-      <Navbar expand="xl" expanded={expanded} onToggle={() => setExpanded(!expanded)}>
-        <div className="container-fluid">
-          <Navbar.Brand as={NavLink} to="/">
-            <img src={logo} className="logo" alt="BookVault Logo" />
-            BookVault
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav" style={{ fontSize: "16px" }}>
-            <Nav className="ms-auto">
-              <Nav.Item>
-                <Nav.Link as={NavLink} to="/about" onClick={() => setExpanded(false)}>
-                  About
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link as={NavLink} to="/contact" onClick={() => setExpanded(false)}>
-                  Contact
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link as={NavLink} to="/books" onClick={() => setExpanded(false)}>
-                  Books
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link as={NavLink} to="/mybooks" onClick={() => setExpanded(false)}>
-                  MyBooks
-                </Nav.Link>
-              </Nav.Item>
-            </Nav>
+  <Styles>
+    <Navbar expand="xl" expanded={expanded} onToggle={() => setExpanded(!expanded)}>
+      <div className="container-fluid d-flex justify-content-between align-items-center">
+        {/* Left: Logo */}
+        <Navbar.Brand as={NavLink} to="/" className="d-flex align-items-center">
+          <img src={logo} className="logo" alt="BookVault Logo" />
+          BookVault
+        </Navbar.Brand>
 
-            <Nav className="ms-auto">
-              {!user && (
-                <Nav.Item>
-                  <Button
-                    variant="outline-light"
-                    onClick={handleSubmit}
-                    className="navbar-button"
-                  >
-                    Login
-                  </Button>
-                </Nav.Item>
-              )}
-              {/* <Nav.Item>
-                <Button
-                  variant="outline-light"
-                  onClick={handleSubmit}
-                  className="navbar-button"
-                >
-                  {user ? "Logout" : "Login"}
-                </Button>
-              </Nav.Item> */}
+        <div className="d-flex align-items-center">
+          {/* <Button
+            variant="outline-light"
+            onClick={openChatbot}
+            className="navbar-button me-2"
+          >
+            Chat
+          </Button> */}
 
-              <Nav.Item>
-                <Button
-                  variant="outline-light"
-                  onClick={openChatbot}
-                  className="navbar-button"
-                >
-                  Chat
-                </Button>
-                <Modal show={showChatbot} onHide={closeChatbot}>
-                  <Modal.Body>
-                    <Chatbot />
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Button variant="secondary" onClick={closeChatbot}>
-                      Close
-                    </Button>
-                  </Modal.Footer>
-                </Modal>
-              </Nav.Item>
+          {/* Profile icon (if user is logged in) */}
 
-              {user && (
-                <Nav.Item>
-                  <Dropdown align="end">
-                    <Dropdown.Toggle
-                      as={Nav.Link}
-                      id="dropdown-user"
-                      style={{ padding: 0, border: "none", background: "none" }}
-                    >
-                      <Image
-                        src={user.avatar || profileIcon}
-                        roundedCircle
-                        width="35"
-                        height="35"
-                        className="ms-3"
-                        alt="User"
-                      />
-                    </Dropdown.Toggle>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" className="me-3" />
 
-                    <Dropdown.Menu>
-                      <Dropdown.Item href="/profile">My Profile</Dropdown.Item>
-                      {user.role == "admin" && (
-                        <Dropdown.Item as={NavLink} to="/admin-dashboard">
-                          Dashboard
-                        </Dropdown.Item>
-                      )}
-                      <Dropdown.Item onClick={handleLogout}>
-                        Logout
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </Nav.Item>
-              )}
-            </Nav>
-          </Navbar.Collapse>
+          {user && (
+            <Dropdown align="end" className="me-2">
+              <Dropdown.Toggle
+                as={Nav.Link}
+                id="dropdown-user"
+                style={{ padding: 0, border: "none", background: "none" }}
+              >
+                <Image
+                  src={user.avatar || profileIcon}
+                  roundedCircle
+                  width="35"
+                  height="35"
+                  alt="User"
+                />
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="/profile">My Profile</Dropdown.Item>
+                {user.role === "admin" && (
+                  <Dropdown.Item as={NavLink} to="/admin-dashboard">
+                    Dashboard
+                  </Dropdown.Item>
+                )}
+                <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          )}
+
+          
         </div>
-      </Navbar>
-    </Styles>
-  );
+      </div>
+
+      {/* Collapsible Menu Items */}
+      <Navbar.Collapse id="basic-navbar-nav" style={{ fontSize: "16px" }}>
+        <Nav className="ms-auto">
+          <Nav.Item>
+            <Nav.Link as={NavLink} to="/about" onClick={() => setExpanded(false)}>
+              About
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link as={NavLink} to="/contact" onClick={() => setExpanded(false)}>
+              Contact
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link as={NavLink} to="/books" onClick={() => setExpanded(false)}>
+              Books
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link as={NavLink} to="/mybooks" onClick={() => setExpanded(false)}>
+              MyBooks
+            </Nav.Link>
+          </Nav.Item>
+
+          {/* Login button (only if not logged in) */}
+          {!user && (
+            <Nav.Item>
+              <Button
+                variant="outline-light"
+                onClick={handleSubmit}
+                className="navbar-button"
+              >
+                Login
+              </Button>
+            </Nav.Item>
+          )}
+        </Nav>
+      </Navbar.Collapse>
+
+      {/* Chatbot Modal */}
+      <Modal show={showChatbot} onHide={closeChatbot}>
+        <Modal.Body>
+          <Chatbot />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={closeChatbot}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </Navbar>
+  </Styles>
+);
+
 }
 
 export { NavigationBar };

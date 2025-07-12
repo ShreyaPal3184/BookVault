@@ -135,7 +135,7 @@ const Register = () => {
                 />
               </Form.Group>
 
-          <Form.Group className="mt-3">
+          {/* <Form.Group className="mt-3">
                  <Row>
                    <Col xs={1}>
                      <Form.Label>Role: </Form.Label>
@@ -163,7 +163,30 @@ const Register = () => {
                     </Row>
                   </Col>
                 </Row>
-              </Form.Group>
+              </Form.Group> */}
+
+              <Form.Group className="mt-3">
+  <Form.Label>Role</Form.Label>
+  <div className="d-flex flex-column flex-md-row gap-3">
+    <Form.Check
+      type="radio"
+      label="User"
+      value="user"
+      checked={role === 'user'}
+      onChange={() => setRole('user')}
+      id="role-user"
+    />
+    <Form.Check
+      type="radio"
+      label="Admin"
+      value="admin"
+      checked={role === 'admin'}
+      onChange={() => setRole('admin')}
+      id="role-admin"
+    />
+  </div>
+</Form.Group>
+
               
 
               <StyledButton variant="primary" type="submit">
