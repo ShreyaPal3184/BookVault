@@ -1,5 +1,4 @@
 import React from "react";
-import { MdEmail, MdPhone } from "react-icons/md";
 import { Container, Row, Col } from "react-bootstrap";
 import styled from "styled-components";
 import logo from "../../Assets/BookVault_Logo.png";
