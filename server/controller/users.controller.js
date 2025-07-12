@@ -160,7 +160,8 @@ const login = async (request, response) => {
   const { email, password, role } = request.body;
 
   if(!email || !password || !role) {
-    console.log("Missing entries");
+    return response.status(400).send('Missing entries');
+
   }
   
   try {
@@ -168,7 +169,7 @@ const login = async (request, response) => {
     const user = result.rows[0];
 
     if (!user) {
-      return response.status(401).send('Login failed'); // Return 401 if user not found
+      return response.status(401).send('Login failed'); 
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);

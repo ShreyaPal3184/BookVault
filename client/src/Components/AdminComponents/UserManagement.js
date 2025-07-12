@@ -188,7 +188,8 @@ const UserManagement = () => {
       setShowCreateForm(false);
       fetchUsers();
     } catch (err) {
-      window.alert(err?.response?.data?.message || "Failed to create admin.");
+      // window.alert(err?.response?.data?.message || "Failed to create admin.");
+      toast.error("User already exists");
     }
   };
 

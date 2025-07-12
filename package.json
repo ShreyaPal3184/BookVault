@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "cloudinary": "^2.7.0",
     "install": "^0.13.0",
     "lucide-react": "^0.525.0",
     "npm": "^11.4.2",

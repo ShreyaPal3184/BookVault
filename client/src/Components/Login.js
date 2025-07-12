@@ -235,17 +235,12 @@ const Register = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3001/api/users/login', { email, password, role });
-      if (response.status === 200) {
+      console.log(response.data);
+      
+      if (response.status === 200) {  
         console.log(response.data);
         toast.success(`Login successful`);
         setUser({ id: response.data.id, name: response.data.name, role: response.data.role });
-
-        // Navigate based on role
-        // if (response.data.role === 'admin') {
-        //   navigate('/admin'); 
-        // } else {
-        //   navigate('/'); 
-        //}
         navigate('/');
       } else {
         console.log("Login Failed");
