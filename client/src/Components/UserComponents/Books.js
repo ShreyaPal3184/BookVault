@@ -12,7 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useUser } from "../UserContext";
 import styled from "styled-components";
-import "./Books.css"
+import "./Books.css";
 
 const baseURL = process.env.REACT_APP_BASE_URL;
 
@@ -24,6 +24,11 @@ const StyledCard = styled.div`
     perspective: 1000px;
     font-family: sans-serif;
     margin-bottom: 20px;
+
+    @media (max-width: 480px) {
+      margin: 0 auto 20px;
+      width: 80%;
+    }
   }
 
   .title {
@@ -113,9 +118,7 @@ const Books = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get(
-        `${baseURL}/api/books/category`
-      );
+      const response = await axios.get(`${baseURL}/api/books/category`);
       setCategories(response.data || []);
     } catch (error) {
       console.error("Error fetching categories:", error);
@@ -128,9 +131,7 @@ const Books = () => {
       if (category === "All") {
         response = await axios.get(`${baseURL}/api/books/get`);
       } else {
-        response = await axios.get(
-          `${baseURL}/api/books/category/${category}`
-        );
+        response = await axios.get(`${baseURL}/api/books/category/${category}`);
       }
       setBooks(response.data || []);
     } catch (error) {
@@ -185,6 +186,13 @@ const Books = () => {
           </div>
         </Col>
       </Row>
+
+      <div
+        className="d-block d-md-none text-center mb-3 text-muted"
+        style={{ fontSize: "0.95rem" }}
+      >
+        📖 Tap on a card to view details. Tap again to flip back.
+      </div>
 
       <div className="custom-row">
         {books.map((book) => (

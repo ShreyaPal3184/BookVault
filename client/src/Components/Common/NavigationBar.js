@@ -118,6 +118,8 @@ function NavigationBar() {
   const { user, setUser } = useUser();
   const navigate = useNavigate();
   const [showChatbot, setShowChatbot] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+
 
   const openChatbot = () => setShowChatbot(true);
   const closeChatbot = () => setShowChatbot(false);
@@ -139,7 +141,8 @@ function NavigationBar() {
 
   return (
     <Styles>
-      <Navbar expand="xl">
+      {/* <Navbar expand="xl"> */}
+      <Navbar expand="xl" expanded={expanded} onToggle={() => setExpanded(!expanded)}>
         <div className="container-fluid">
           <Navbar.Brand as={NavLink} to="/">
             <img src={logo} className="logo" alt="BookVault Logo" />
@@ -149,22 +152,22 @@ function NavigationBar() {
           <Navbar.Collapse id="basic-navbar-nav" style={{ fontSize: "16px" }}>
             <Nav className="ms-auto">
               <Nav.Item>
-                <Nav.Link as={NavLink} to="/about">
+                <Nav.Link as={NavLink} to="/about" onClick={() => setExpanded(false)}>
                   About
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link as={NavLink} to="/contact">
+                <Nav.Link as={NavLink} to="/contact" onClick={() => setExpanded(false)}>
                   Contact
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link as={NavLink} to="/books">
+                <Nav.Link as={NavLink} to="/books" onClick={() => setExpanded(false)}>
                   Books
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link as={NavLink} to="/mybooks">
+                <Nav.Link as={NavLink} to="/mybooks" onClick={() => setExpanded(false)}>
                   MyBooks
                 </Nav.Link>
               </Nav.Item>
