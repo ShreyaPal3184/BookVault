@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { useUser } from './UserContext.js';
-import { Container, Form, Button, Row, Col } from 'react-bootstrap';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import formImage from '../Assets/register.jpg';
+import React, { useState } from "react";
+import { useUser } from "./UserContext.js";
+import { Container, Form, Button, Row, Col } from "react-bootstrap";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import formImage from "../Assets/register.jpg";
 
 const baseURL = process.env.REACT_APP_BASE_URL;
 
@@ -15,7 +15,8 @@ const StyledContainer = styled(Container)`
   justify-content: center;
   min-height: 80vh;
   padding: 0 20px;
-  background: linear-gradient(135deg,rgb(249, 253, 255), #ffffff);
+  background: linear-gradient(135deg, rgb(249, 253, 255), #ffffff);
+
 `;
 
 const RegisterPageImage = styled.img`
@@ -28,7 +29,6 @@ const RegisterPageImage = styled.img`
     margin-bottom: 20px;
   }
 `;
-
 
 const RegisterFormContainer = styled.div`
   background: #ffffff;
@@ -46,8 +46,14 @@ const RegisterFormContainer = styled.div`
   }
 
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 `;
 
@@ -60,7 +66,7 @@ const StyledFormControl = styled(Form.Control)`
 
   &:focus {
     border-color: #007bff;
-    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
   }
 `;
 
@@ -79,24 +85,32 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const Register = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState('user'); 
+const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("user");
   const navigate = useNavigate();
   const { setUser } = useUser();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${baseURL}/api/users/login`, { email, password, role });
+      const response = await axios.post(`${baseURL}/api/users/login`, {
+        email,
+        password,
+        role,
+      });
       console.log(response.data);
-      
-      if (response.status === 200) {  
+
+      if (response.status === 200) {
         console.log(response.data);
         toast.success(`Login successful`);
-        setUser({ id: response.data.id, name: response.data.name, role: response.data.role });
-        navigate('/');
+        setUser({
+          id: response.data.id,
+          name: response.data.name,
+          role: response.data.role,
+        });
+        navigate("/");
       } else {
         console.log("Login Failed");
         toast.error(`Login failed.`);
@@ -135,59 +149,27 @@ const Register = () => {
                 />
               </Form.Group>
 
-          {/* <Form.Group className="mt-3">
-                 <Row>
-                   <Col xs={1}>
-                     <Form.Label>Role: </Form.Label>
-                   </Col>
-                   <Col xs={4}>
-                     <Row>
-                       <Col xs={5}>
-                         <Form.Check
-                          type="radio"
-                          label="User"
-                          value="user"
-                          checked={role === 'user'}
-                          onChange={() => setRole('user')}
-                        />
-                      </Col>
-                      <Col xs={5}>
-                        <Form.Check
-                          type="radio"
-                          label="Admin"
-                          value="admin"
-                          checked={role === 'admin'}
-                          onChange={() => setRole('admin')}
-                        />
-                      </Col>
-                    </Row>
-                  </Col>
-                </Row>
-              </Form.Group> */}
-
               <Form.Group className="mt-3">
-  <Form.Label>Role</Form.Label>
-  <div className="d-flex flex-column flex-md-row gap-3">
-    <Form.Check
-      type="radio"
-      label="User"
-      value="user"
-      checked={role === 'user'}
-      onChange={() => setRole('user')}
-      id="role-user"
-    />
-    <Form.Check
-      type="radio"
-      label="Admin"
-      value="admin"
-      checked={role === 'admin'}
-      onChange={() => setRole('admin')}
-      id="role-admin"
-    />
-  </div>
-</Form.Group>
-
-              
+                <Form.Label>Role</Form.Label>
+                <div className="d-flex flex-column flex-md-row gap-3">
+                  <Form.Check
+                    type="radio"
+                    label="User"
+                    value="user"
+                    checked={role === "user"}
+                    onChange={() => setRole("user")}
+                    id="role-user"
+                  />
+                  <Form.Check
+                    type="radio"
+                    label="Admin"
+                    value="admin"
+                    checked={role === "admin"}
+                    onChange={() => setRole("admin")}
+                    id="role-admin"
+                  />
+                </div>
+              </Form.Group>
 
               <StyledButton variant="primary" type="submit">
                 Login
@@ -203,4 +185,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;

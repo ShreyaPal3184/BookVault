@@ -138,6 +138,7 @@ function NavigationBar() {
 
   const handleLogout = () => {
     localStorage.removeItem("user");
+    setUser(null);
     navigate("/login"); 
     setExpanded(false);
   };
@@ -146,7 +147,6 @@ function NavigationBar() {
   <Styles>
     <Navbar expand="xl" expanded={expanded} onToggle={() => setExpanded(!expanded)}>
       <div className="container-fluid d-flex justify-content-between align-items-center">
-        {/* Left: Logo */}
         <Navbar.Brand as={NavLink} to="/" className="d-flex align-items-center">
           <img src={logo} className="logo" alt="BookVault Logo" />
           BookVault
@@ -163,7 +163,7 @@ function NavigationBar() {
 
           {/* Profile icon (if user is logged in) */}
 
-          <Navbar.Toggle aria-controls="basic-navbar-nav" className="me-3" />
+          <Navbar.Toggle aria-controls="basic-navbar-nav" className="me-1" />
 
           {user && (
             <Dropdown align="end" className="me-2">
@@ -182,7 +182,7 @@ function NavigationBar() {
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item href="/profile">My Profile</Dropdown.Item>
+                <Dropdown.Item as={NavLink} to="/">My Profile</Dropdown.Item>
                 {user.role === "admin" && (
                   <Dropdown.Item as={NavLink} to="/admin-dashboard">
                     Dashboard
